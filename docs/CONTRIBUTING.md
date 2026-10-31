@@ -53,9 +53,13 @@ Run checks relevant to the diff and record browser/device details and failures.
 | Media | Portrait cycle, local video/poster, embedded-player fallback links |
 | Optional features | Game open/close/restart and no interference with other controls; animations remain optional |
 
-Known gaps are tracked, not waived: the image dialog lacks complete focus
-management, and the game has an overly broad Space shortcut
-([#13](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/13)). The complete non-JavaScript overview is generated from all 23 policy records.
+The image dialog uses native `showModal()` background inertness, explicit Tab wrap,
+Escape/close cleanup and opener restoration. The game uses its native throw button;
+there is no global Space listener. Skip navigation and measured sticky-header
+clearance preserve keyboard access. Chromium covers focus, names, 320px large/dark
+layout and CSS zoom. Real screen-reader, native browser zoom and other-engine
+spot checks remain owner validation; automation is not a substitute for those.
+The complete non-JavaScript overview is generated from all 23 policy records.
 
 Calculator values above are regression expectations for the baseline constants,
 not benefit advice. Recalculate expectations when reviewed source assumptions change.

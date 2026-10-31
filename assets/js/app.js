@@ -237,3 +237,9 @@ function openFromHash() {
 drawPick(); drawCards(); drawTiles(); drawPanel();
 drawSteps(); setAfter(false); moveTruck(); calc();
 openFromHash(); addEventListener('hashchange', openFromHash);
+
+// Keep native fragment targets clear of the wrapping sticky navigation.
+const navBar = document.querySelector('.bar');
+if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => {
+ document.documentElement.style.setProperty('--nav-height', (navBar.getBoundingClientRect().height + 16) + 'px');
+}).observe(navBar);
