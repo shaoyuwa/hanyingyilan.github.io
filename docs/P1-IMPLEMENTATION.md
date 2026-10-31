@@ -1,9 +1,10 @@
 # Local P1 implementation review
 
 Prepared 2026-11-01. These are local changes, not deployment or indexing results.
-No pushes, external review issues, PRs, Pages settings changes or merges were made.
-The requested review-issue payloads are recorded here pending external-write
-access/authorization. Original issue acceptance remains open for owner checks.
+This section records the original local implementation. The authorized fork integration
+on 2026-11-01 uses separate `integrate/*` branches and merge commits; upstream
+PRs #21–#27 and their source branches remain open/unchanged. Original issue
+acceptance remains open for owner checks. See the integration record below.
 
 | Source issue | Branch | Parent branch | Implementation commit | Local evidence |
 | --- | --- | --- | --- | --- |
@@ -79,3 +80,29 @@ engines remain unperformed. No new analytics or input/preference telemetry exist
 Merge in the approved stack order after review. If squash/rebase merging changes
 parent commit IDs, rebase each remaining branch and verify its incremental diff.
 Do not treat local implementation completion as deployed acceptance.
+
+## Fork integration verification, 2026-11-01
+
+Reviewed original range `4259eda..d0a784c` with an independent reviewer; no
+substantive blocker found. Fixed extracted-script EOF whitespace. Backported
+HTML/source validation and temporary freshness fixtures to #11, and Canvas,
+deep-link stamps and H1 specificity to #1. The stricter validator exposed a
+literal `<` in older calculator copy; escaped it without changing visible text.
+Deep-link stamp regression was observed at 0/6, then passed at 1/6 after repair.
+No upstream review comments or threads existed when checked.
+
+Pre-merge integrated code: `f85aa0d` (same product tree as `d0a784c` except EOF
+whitespace). Node 25.4.0, npm 11.7.0, Playwright 1.64.1, Chromium 156.0.8078.4,
+macOS; 19 native tests and 14 browser tests passed. Earlier gates: #11 10 native /
+6 browser, #1 11 / 11, #2 13 / 12, #4 15 / 12. Generated freshness, script/HTML
+syntax, content, numerical boundaries and commit-range whitespace were checked.
+Browser cases are listed above; screenshots cover mobile, desktop and CSS zoom.
+
+Actual local Jekyll 3.10.0 `build --safe` with Ruby 4.0.7 produced exactly the
+28 public manifest paths, with no contributor/source files. Jekyll version matches
+[GitHub Pages dependency versions](https://pages.github.com/versions/). This does
+not establish the hosted Pages build result; Ruby/platform and hosted plugins may
+differ. Live deployment and owner tooling remain outstanding.
+
+Fork PRs #1–#7 integrate in order, preserving the original production canonical.
+The next P1 stack remains open for review. Pages settings are unchanged.

@@ -92,8 +92,9 @@ writes `_config.yml` exclusions for legacy Pages Jekyll. Add intended public ass
 to the manifest; unknown tracked files fail checks. Contributor/source/tooling
 paths are excluded from publishing, not merely omitted from the sitemap. A local
 Python server still exposes repository files; it does not model Jekyll exclusions.
-Jekyll is unavailable in the validation environment, so inspect the actual Pages
-build output and public URLs after deployment before marking publishing accepted.
+Local Jekyll 3.10.0 output was checked against the manifest during fork integration;
+see P1-IMPLEMENTATION.md. Inspect actual Pages output and public URLs after
+deployment before marking publishing accepted.
 
 Maintainer roles, media provenance and post-election ownership need to be assigned
 by the repository maintainers; see [#16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16).
