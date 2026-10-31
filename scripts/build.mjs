@@ -1,3 +1,4 @@
+import {validateSources,citation,sourceList} from '../src/sources.mjs';
 import {HtmlValidate} from 'html-validate';
 import {join} from 'node:path';
 import {RATES,PROVENANCE,calculateBenefits,DEFAULT_COUNTS,MAX_MONTHS} from '../src/calculator.mjs';
@@ -26,8 +27,8 @@ export function validateHTML(html, outputs={}) {
  for(const value of attrs('href'))if(value.startsWith('#')&&!ids.includes(value.slice(1))&&!/^#six-(intl|traffic|city|tour|resil|welfare)$/.test(value))throw Error(`missing fragment: ${value}`);
 }
 const escape=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function renderOverview(data){
- return '<section id="policy-overview"><div class="wrap"><h2>完整政見與出處</h2>'+Object.entries(data.PIL).filter(([k])=>k!=='gov').map(([key,pillar])=>`<section id="six-${key}"><h3>${escape(pillar.n)}</h3><div class="cards">${data.PL.filter(p=>p.p===key).map(p=>`<article class="pcard" id="policy-${p.id}"><div class="bd"><h4>${escape(p.t)}</h4><ul>${p.body.map(b=>`<li>${escape(b)}</li>`).join('')}</ul><p class="meta">出處：${escape(p.ref)}</p>${p.go?`<a href="#${p.go}">查看相關互動</a>`:''}</div></article>`).join('')}</div></section>`).join('')+'</div></section>';
+function renderOverview(data,sources){
+ return '<section id="policy-overview"><div class="wrap"><h2>完整政見與出處</h2>'+Object.entries(data.PIL).filter(([k])=>k!=='gov').map(([key,pillar])=>`<section id="six-${key}"><h3>${escape(pillar.n)}</h3><div class="cards">${data.PL.filter(p=>p.p===key).map(p=>`<article class="pcard" id="policy-${p.id}"><div class="bd"><h4>${escape(p.t)}</h4><ul>${p.body.map(b=>`<li>${escape(b)}</li>`).join('')}</ul><p class="meta">出處：${escape(p.ref)}</p>${citation(p,sources)}${p.go?`<a href="#${p.go}">查看相關互動</a>`:''}</div></article>`).join('')}</div></section>`).join('')+'</div></section>';
 }
 export function validatePublishing(files, manifest){
  for(const f of files)if(f!=='_config.yml'&&!manifest.public.includes(f)&&!manifest.excluded.some(x=>f===x||f.startsWith(x+'/')))throw Error(`unclassified publish file: ${f}`);
@@ -40,10 +41,12 @@ export function resolveRates(text){
 export function loadPolicies(){return JSON.parse(resolveRates(readFileSync('content/policies.json','utf8')))}
 export function generate(){
  const data=loadPolicies();validate(data);
+ const sources=JSON.parse(readFileSync('content/sources.json','utf8'));validateSources(data,sources);
+
  const site=JSON.parse(readFileSync('content/site.json','utf8'));
  if(new URL(site.url).href!==site.url||new URL(site.url).pathname!=='/'||new URL(site.url).search||new URL(site.url).hash)throw Error('invalid production root');
- const html=resolveRates(readFileSync('src/index.template.html','utf8')).replace('{{POLICY_OVERVIEW}}',renderOverview(data)).replaceAll('{{DEFAULT_TOTAL}}',calculateBenefits(DEFAULT_COUNTS,MAX_MONTHS).total.toLocaleString('en-US')).replaceAll('{{SITE_URL}}',site.url).replace('{{CALCULATOR_SOURCE}}',`<p class="fine">${PROVENANCE.status}。依 <a href="${PROVENANCE.sourceURL}">${PROVENANCE.sourceDate} 報導的提案金額</a>；來源查閱：${PROVENANCE.checkedDate}。提案與現行給付不同，實際資格及金額請見<a href="${escape(PROVENANCE.currentURL)}">宜蘭市公所公告</a>。</p>`);
- const outputs={'index.html':html,'assets/site.css':readFileSync('src/site.css','utf8'),'assets/js/app.js':readFileSync('src/app.js','utf8'),'assets/js/optional.js':readFileSync('src/optional.js','utf8'),'assets/js/policies.js':'window.SITE_URL = '+JSON.stringify(site.url)+';\nwindow.POLICY_DATA = '+JSON.stringify(data).replace(/</g,'\\u003c')+';\n'};
+ const html=resolveRates(readFileSync('src/index.template.html','utf8')).replace('{{POLICY_OVERVIEW}}',renderOverview(data,sources)).replace('{{SOURCE_REGISTRY}}',sourceList(sources)).replaceAll('{{DEFAULT_TOTAL}}',calculateBenefits(DEFAULT_COUNTS,MAX_MONTHS).total.toLocaleString('en-US')).replaceAll('{{SITE_URL}}',site.url).replace('{{CALCULATOR_SOURCE}}',`<p class="fine">${PROVENANCE.status}。依 <a href="${PROVENANCE.sourceURL}">${PROVENANCE.sourceDate} 報導的提案金額</a>；來源查閱：${PROVENANCE.checkedDate}。提案與現行給付不同，實際資格及金額請見<a href="${escape(PROVENANCE.currentURL)}">宜蘭市公所公告</a>。</p>`);
+ const outputs={'index.html':html,'assets/site.css':readFileSync('src/site.css','utf8'),'assets/js/app.js':readFileSync('src/app.js','utf8'),'assets/js/optional.js':readFileSync('src/optional.js','utf8'),'assets/js/policies.js':'window.SITE_URL = '+JSON.stringify(site.url)+';\nwindow.POLICY_DATA = '+JSON.stringify(data).replace(/</g,'\\u003c')+';\nwindow.POLICY_CITATIONS = '+JSON.stringify(Object.fromEntries(data.PL.map(p=>[p.id,citation(p,sources)]))).replace(/</g,'\\u003c')+';\n'};
  outputs['assets/js/calculator.js']=readFileSync('src/calculator.mjs','utf8').replace(/^export /gm,'');
  const publishing=JSON.parse(readFileSync('content/publishing.json','utf8'));
  outputs['robots.txt']='User-agent: *\nAllow: /\n\nSitemap: '+site.url+'sitemap.xml\n';

@@ -77,3 +77,12 @@ it is not a recurring entitlement. Zero/default/max totals remain 0/95,200/723,2
 Core rendering cancels its previous animation frame on each update and announces
 only settled totals through a dedicated live status region. No requests carry the
 family inputs. See [CONTENT](CONTENT.md) for the proposal/current-program distinction.
+
+## Source registry
+
+`content/sources.json` and policy `sourceRefs` provide one source model. The build
+validates it through `src/sources.mjs`, emits the readable registry into initial HTML,
+and emits `POLICY_CITATIONS` from the same renderer for enhanced cards. No network
+fetch is required at build or runtime. Proposal status, original publication,
+source review and complete policy review are separate fields; missing evidence
+remains visible. Dates are manually reviewed, never refreshed by generation.
