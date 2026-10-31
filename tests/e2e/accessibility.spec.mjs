@@ -25,3 +25,12 @@ test('large dark mobile dialog keeps controls reachable and targets below naviga
  await page.locator('#mkcard').click();await page.locator('#cClose').focus();await expect(page.locator('#cClose')).toBeInViewport();await page.screenshot({path:'test-results/modal-320-dark-large.png'});
  await page.keyboard.press('Escape');await expect(page.locator('#mkcard')).toBeFocused();
 });
+test('overlapping card generation leaves the newest dialog operable',async({page})=>{
+ await page.addInitScript(()=>{window.cardCallbacks=[];HTMLCanvasElement.prototype.toBlob=function(callback){window.cardCallbacks.push(callback);};});
+ await page.goto('/');await page.locator('#mkcard').click();await page.locator('#mkcard').click();
+ await expect.poll(()=>page.evaluate(()=>window.cardCallbacks.length)).toBe(2);
+ await page.evaluate(()=>{for(const callback of window.cardCallbacks)callback(new Blob(['image'],{type:'image/png'}));});
+ await expect(page.getByRole('dialog')).toHaveCount(1);
+ await page.locator('#cShare').click();await expect(page.locator('#cardStatus')).not.toBeEmpty();
+ await page.locator('#cClose').click();await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.locator('#mkcard')).toBeFocused();
+});

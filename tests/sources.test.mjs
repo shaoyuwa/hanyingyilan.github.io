@@ -13,3 +13,5 @@ test('enhanced citation HTML also appears in the initial response',()=>{
  const html=readFileSync('index.html','utf8');assert.equal(Object.keys(context.window.POLICY_CITATIONS).length,23);
  for(const citation of Object.values(context.window.POLICY_CITATIONS))assert.ok(html.includes(citation));
 });
+
+test('public video metadata contains no undated view counts',()=>{assert.doesNotMatch(readFileSync('index.html','utf8'),/[0-9,]+ 次觀看/)});
