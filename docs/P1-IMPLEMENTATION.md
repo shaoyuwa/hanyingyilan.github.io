@@ -1,108 +1,64 @@
-# Local P1 implementation review
+# Original P1 implementation record — 2026-11-01
 
-Prepared 2026-11-01. These are local changes, not deployment or indexing results.
-This section records the original local implementation. The authorized fork integration
-on 2026-11-01 uses separate `integrate/*` branches and merge commits; upstream
-PRs #21–#27 and their source branches remain open/unchanged. Original issue
-acceptance remains open for owner checks. See the integration record below.
+Historical scope: the first five implementation tickets and fork PRs #1–#7,
+ending at `561223c`. This is evidence about those revisions, not current setup
+instructions or current branch status. The [integrated review](P1-NEXT-STACK.md)
+owns the later stack and inclusive review range; [CONTRIBUTING](CONTRIBUTING.md)
+owns repeatable validation procedures.
 
-| Source issue | Branch | Parent branch | Implementation commit | Local evidence |
+## Original implementation points
+
+| Source issue | Original branch | Parent branch | Implementation commit | Result at that stage |
 | --- | --- | --- | --- | --- |
-| #11 | `p1/11-validation-build` | `arch/p1-proposal` | `cf17633` | Deterministic build, CI, negative validation and browser smoke |
-| #1 | `p1/01-static-content` | `p1/11-validation-build` | `6d09a47` | All 23 policies in initial HTML, same generated browser data, independent optional script |
-| #2 | `p1/02-canonical` | `p1/01-static-content` | `3c32f92` | Canonical/Open Graph/shared root and category fragments; root/index/query browser cases |
-| #4 | `p1/04-crawlers` | `p1/02-canonical` | `db463da` | Root-only sitemap, permissive robots, explicit public manifest and Jekyll exclusions |
-| #12 | `p1/12-calculator` | `p1/04-crawlers` | `852fb79` | Shared proposal rates/provenance, pure calculation, latest animation wins, settled live result |
+| #11 | `p1/11-validation-build` | `arch/p1-proposal` | `cf17633` | Deterministic build, CI and negative validation |
+| #1 | `p1/01-static-content` | `p1/11-validation-build` | `6d09a47` | Complete initial overview and independent optional script |
+| #2 | `p1/02-canonical` | `p1/01-static-content` | `3c32f92` | Shared canonical/Open Graph/sharing root |
+| #4 | `p1/04-crawlers` | `p1/02-canonical` | `db463da` | Crawler artifacts, public manifest and Pages exclusions |
+| #12 | `p1/12-calculator` | `p1/04-crawlers` | `852fb79` | Shared proposal rates, pure calculation and settled results |
 
-Architecture clarification commit `77556cd` sits on the #1 branch before its
-implementation. Final review fixes and expanded regression coverage sit atop the
-#12 branch and must be included with the stack. Branch commits are review points;
-full acceptance evidence below applies to the integrated final tree.
+Architecture clarification `77556cd` preceded #1. Final review fixes accumulated
+at `d0a784c`; the original branch tips alone were not independent final-acceptance
+snapshots. [The architecture decision](ARCHITECTURE-PROPOSAL.md) records the tradeoffs.
 
-## Validation evidence
+## First local validation
 
-Environment: macOS, Node 25.4.0, Playwright 1.64.1 Chromium. `npm run check`,
-`npm test`, and `git diff --check` pass. Native tests cover data identity/category/
-source classes, all policy text and browser data parity, HTML closing/nesting,
-local assets and fragments, public-file classification, all generated scripts,
-canonical/previews/crawlers, deterministic generation and stale artifacts. Stale
-artifact tests mutate temporary copies of every generated output, never live files.
-Deliberately malformed nesting, single-quoted missing assets/duplicate IDs, unknown
-source classes and stale fixture data are rejected. These are engineering checks,
-not independent verification of political claims.
+Recorded environment: macOS, Node 25.4.0, Playwright 1.64.1 Chromium. Freshness,
+native tests and whitespace checks passed; the integrated browser suite passed
+14 tests in 24.6 seconds. Checks covered content parity, HTML/script validation,
+resources/fragments, publishing classification, deterministic generation and
+negative fixtures in temporary copies.
 
-The full integrated Chromium suite passed 14 tests in 24.6 seconds. It covers all
-six categories, details, filter clear/all, initial category links and stamps,
-no JavaScript, blocked core/data, blocked optional script, Canvas unavailable
-including attempted actions, calculator zero/default/max/month boundaries and
-rapid animation updates, calculator keyboard input, comparison states, clipboard
-success/failure, LINE URLs, generated image/download/unsupported share, themes,
-large text, portrait cycle, local media markup and Facebook fallback links, game
-open/close/restart, blocked third parties and storage, 320/390/1280px widths and
-200% CSS zoom. Screenshots are ignored local artifacts under `test-results/`.
-CSS zoom is a layout simulation, not an OS assistive-technology test.
+Browser coverage included core/optional/Canvas failure, categories and fragments,
+filters, calculator boundaries and rapid updates, comparison, sharing fallbacks,
+theme/text sizing, media/game controls, blocked storage/third parties, mobile and
+desktop layouts and CSS zoom. Screenshots stayed in ignored local test output.
+These checks did not independently verify political claims or external services.
 
-## Source/status findings
+At this stage Jekyll was unavailable and #13 modal/game accessibility gaps remained.
+Those limitations were subsequently addressed in the integration below and the
+[later review stack](P1-NEXT-STACK.md#second-stack-fork-prs-813), respectively.
+Real screen readers, native browser zoom and other engines were not checked.
+Earlier source inspections are preserved once in [CONTENT](CONTENT.md#historical-source-inspections--2026-11-01).
 
-The accessible Newtalk report dated 2026-07-01 supports the proposed calculator
-rates. The official August 14 announcement has different elder rates. The UI now
-labels a proposal scenario, links both sources and shows the actual source-check
-date separately. No eligibility or enactment guarantee is made. See CONTENT.md.
+## Fork integration verification
 
-## Rulings and limits
+The original range `4259eda..d0a784c` received independent review with no substantive
+blocker. Integration backported HTML validation and temporary freshness fixtures to
+#11, plus Canvas fallback, deep-link stamps and H1 specificity to #1. It escaped a
+literal `<` found by the stricter validator and removed extracted-script EOF
+whitespace. The initial deep-link stamp failed at 0/6, then passed at 1/6 after repair.
+No upstream review comments or threads existed when checked during that integration.
 
-- Keep complete overview permanently visible alongside enhanced selected cards:
-  this guarantees readable content under core/optional failure, at the cost of a
-  longer page. No substantive policy text is hidden exclusively behind JavaScript.
-- Preserve proposal calculator amounts and baseline totals, rather than replacing
-  them with current government amounts; label the distinction visibly. Otherwise
-  the calculator would model a different proposal than the requested regression.
-- Pin a development HTML validator to check actual nesting instead of treating
-  regex references as HTML validation. Production remains dependency-free; the
-  maintenance cost is a small additional locked development dependency tree.
-- Record review issues locally because this session did not authorize external
-  writes; no fabricated issue links or deployment claims.
+Pre-merge integrated code `f85aa0d` had the same product tree as `d0a784c` except EOF
+whitespace. On macOS with Node 25.4.0, npm 11.7.0, Playwright 1.64.1 and Chromium
+156.0.8078.4, 19 native and 14 browser tests passed. Earlier stage counts were #11:
+10/6, #1: 11/11, #2: 13/12 and #4: 15/12 (native/browser). Freshness, syntax,
+content, numerical boundaries and commit-range whitespace were checked.
 
-Actual Jekyll build/output was not run: no Jekyll executable/gems were available.
-The configured legacy Pages exclusions and manifest were checked locally; a
-Python server intentionally does not apply them. Verify deployed `_site` contents,
-source/docs exclusion, live status codes, assets and crawler files after merge.
-Search Console submission, Google-selected canonical, indexing and performance
-measurements remain owner work. No Lighthouse score or ranking claim is made.
-External font/player service behavior is not guaranteed by blocked-network tests.
+A local Jekyll 3.10.0 `build --safe` with Ruby 4.0.7 then produced exactly the 28
+manifest paths, with no contributor/source files. This resolved the earlier local
+tooling gap, not hosted Pages acceptance; platform and plugins can differ.
 
-Existing #13 accessibility gaps remain: generated-image modal does not fully trap
-or restore focus, and game Space handling is broader than its controls. Tests
-verify current Escape close and initial focus but do not claim these gaps fixed.
-Full real-screen-reader validation, native browser 200% zoom and other browser
-engines remain unperformed. No new analytics or input/preference telemetry exists.
-
-Merge in the approved stack order after review. If squash/rebase merging changes
-parent commit IDs, rebase each remaining branch and verify its incremental diff.
-Do not treat local implementation completion as deployed acceptance.
-
-## Fork integration verification, 2026-11-01
-
-Reviewed original range `4259eda..d0a784c` with an independent reviewer; no
-substantive blocker found. Fixed extracted-script EOF whitespace. Backported
-HTML/source validation and temporary freshness fixtures to #11, and Canvas,
-deep-link stamps and H1 specificity to #1. The stricter validator exposed a
-literal `<` in older calculator copy; escaped it without changing visible text.
-Deep-link stamp regression was observed at 0/6, then passed at 1/6 after repair.
-No upstream review comments or threads existed when checked.
-
-Pre-merge integrated code: `f85aa0d` (same product tree as `d0a784c` except EOF
-whitespace). Node 25.4.0, npm 11.7.0, Playwright 1.64.1, Chromium 156.0.8078.4,
-macOS; 19 native tests and 14 browser tests passed. Earlier gates: #11 10 native /
-6 browser, #1 11 / 11, #2 13 / 12, #4 15 / 12. Generated freshness, script/HTML
-syntax, content, numerical boundaries and commit-range whitespace were checked.
-Browser cases are listed above; screenshots cover mobile, desktop and CSS zoom.
-
-Actual local Jekyll 3.10.0 `build --safe` with Ruby 4.0.7 produced exactly the
-28 public manifest paths, with no contributor/source files. Jekyll version matches
-[GitHub Pages dependency versions](https://pages.github.com/versions/). This does
-not establish the hosted Pages build result; Ruby/platform and hosted plugins may
-differ. Live deployment and owner tooling remain outstanding.
-
-Fork PRs #1–#7 integrate in order, preserving the original production canonical.
-The next P1 stack remains open for review. Pages settings are unchanged.
+Fork PRs #1–#7 merged in order into `561223cfede2b2739cac52aacf39ad34f01b5220`.
+Integration preserved the production canonical and Pages settings. Implementation,
+fork merge, production deployment and owner acceptance remain separate events.

@@ -1,12 +1,15 @@
 # Crawlability and AI-search checks — 2026-11-01
 
-The review stack serves the same complete, source-attributed HTML to people and
-non-JavaScript HTTP clients. It does not add hidden text, alternate crawler pages,
+The integrated fork source serves the same complete, source-attributed HTML to
+people and non-JavaScript HTTP clients. It does not add hidden text, alternate crawler pages,
 `llms.txt`, speculative schema or a promise of AI citations. Existing permissive
 `robots.txt` is unchanged. Search access and model-training preferences are
 separate owner choices; this task does not silently choose a new policy.
 
-## Official guidance reviewed
+## Official guidance reviewed on 2026-11-01
+
+This is a dated guidance record. Recheck the linked provider documentation before
+changing crawler policy; no provider controls were revalidated by the docs cleanup.
 
 | System | What the control means | Application here |
 | --- | --- | --- |
@@ -30,10 +33,10 @@ new directive is installed.
 
 ## Reproducible checks
 
-With the reviewed tree served locally, run:
+Start the [local server](CONTRIBUTING.md#local-work), then run from the repository root:
 
 ```sh
-node scripts/check-http.mjs http://127.0.0.1:8123/
+node scripts/check-http.mjs http://127.0.0.1:8000/
 ```
 
 This client does not run JavaScript. It checks root, index and query variants for
@@ -46,19 +49,18 @@ identity of an actual crawler.
 Run the same command against production only after this stack is approved and
 actually deployed upstream. It will intentionally fail if production still serves
 older content. Record URL, timestamp, response status, deployment commit and
-which assertions passed; keep local and deployed results separate. Also verify
-Jekyll's actual output against `content/publishing.json` and fetch a source/doc path
-to ensure exclusion. Check sitemap/robots status and canonical on the real host.
-A Python repository server exposes source files and cannot prove those exclusions.
+which assertions passed; keep local and deployed results separate. Follow the
+[release-output procedure](CONTRIBUTING.md#release-and-rollback) for Jekyll exclusions
+and deployed status checks; HTTP content coverage alone does not establish them.
 
 ## Owner and observation work still pending
 
 [SEARCH-CONSOLE.md](SEARCH-CONSOLE.md) records unavailable target-property access.
 Bing Webmaster Tools target-site access has not been established. An authorized
-owner should inspect root/index/query/preview crawl status, rendered HTML and chosen
-canonical in each service after deployment. Do not infer “not indexed” from lack
-of access, an empty web search, or a local test. No live indexing or AI-answer
-comparison was performed for this unmerged stack.
+owner should apply the [Search Console URL observation procedure](SEARCH-CONSOLE.md#baseline-and-follow-up-record)
+and record equivalent Bing observations after deployment. Do not infer “not indexed”
+from lack of access, an empty web search, or a local test. No live indexing or AI-answer
+comparison was performed for this fork implementation.
 
 Use a small neutral question set for manual before/after observations:
 
@@ -75,8 +77,6 @@ are qualitative observations, not ranking measurements or causal evidence.
 
 ## Local verification result
 
-On 2026-11-01 (Asia/Taipei), the HTTP client received 200 for all eight checked
-paths. Root, index and query responses each contained 23 policies and 11 sources;
-all three previews retained noindex, and robots/sitemap retained the production
-URL. Node 25.4.0 executed the client without a DOM or JavaScript page execution.
-The negative fixtures rejected missing policy content, citations and sources.
+The [integrated review](P1-NEXT-STACK.md#recorded-verification) records the dated
+HTTP results and environment alongside the matching native/browser checks.
+That local evidence does not establish actual crawler identity or indexing.

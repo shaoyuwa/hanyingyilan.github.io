@@ -1,7 +1,7 @@
 # Search Console owner handoff — 2026-11-01
 
-Status: target-site access is pending. The signed-in browser's Search Console
-property selector was inspected on 2026-11-01; it did not list
+Access observation as of 2026-11-01: target-site access was unavailable. The
+signed-in browser's Search Console property selector was inspected that day; it did not list
 `https://hanyingyilan.github.io/` or a matching domain property. No property was
 created, no token was generated, and no indexing data for this site was available.
 This is an access observation for one account, not proof nobody has verified it.
@@ -24,8 +24,9 @@ describes the supported methods and periodic re-verification.
 
 For a meta tag, edit `src/index.template.html` inside `head` and regenerate. For an
 HTML verification file, preserve Google's exact filename/content and add that path
-to `content/publishing.json` public files. Run generation, native tests, browser
-checks and the Jekyll output/manifest check. Verify the actual production response
+to `content/publishing.json` public files. Follow the
+[validation and release procedure](CONTRIBUTING.md) for generation, browser checks
+and publication-output verification. Verify the actual production response
 contains the supplied token before the owner presses Verify. Retain the token
 while ownership is needed; do not overwrite other owners' tokens or change Pages
 settings. Owner approval and the real public verification artifact remain pending.
@@ -57,6 +58,6 @@ changes. See [Performance report guidance](https://support.google.com/webmasters
 | 28-day baseline | Unavailable | Export only appropriate aggregates privately |
 | Post-deployment comparison | No upstream deployment in this task | Record release date and repeat observation |
 
-No verification success, sitemap submission, indexing, clicks, impressions or
-ranking improvement is claimed. This document requires no runtime code or test
-framework; links and repository paths are checked during review.
+This handoff records no verification success, sitemap submission, indexing, clicks,
+impressions or ranking improvement. Fork integration evidence is maintained in
+[the review record](P1-NEXT-STACK.md), separately from these owner observations.

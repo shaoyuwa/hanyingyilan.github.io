@@ -5,6 +5,11 @@ Production origin: <https://hanyingyilan.github.io/>.
 This is a technical audit of the repository and its published page. It is not an
 assessment of political claims, campaign effectiveness, or search rankings.
 
+Historical evidence only: statements below describe the audited baseline, not the
+current source. Findings and measurements retain their original date. Follow
+[ROADMAP](ROADMAP.md) for the issue inventory and [the integrated review](P1-NEXT-STACK.md)
+for subsequent work; do not use this audit as a current setup or status guide.
+
 ## Main finding
 
 Prioritize complete readable HTML and consistent URL identity, alongside an owner-led
@@ -70,7 +75,7 @@ See [sitemap guidance](https://developers.google.com/search/docs/crawling-indexi
 
 Each linked ticket has evidence, scope, dependencies, estimated effort, and acceptance
 criteria. [The roadmap](ROADMAP.md) adds implementation order and related engineering
-work. No item in this table has been implemented by this documentation change.
+work. No item in this table was implemented by the original audit commit `8248237`.
 
 ### Content rendering and navigation
 

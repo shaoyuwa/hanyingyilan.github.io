@@ -1,37 +1,30 @@
 # Repository guidance for automated contributors
 
-Read `README.md`, `docs/ARCHITECTURE.md`, and `docs/PRINCIPLES.md` before changes.
-Use `docs/CONTENT.md` for factual updates and `docs/CONTRIBUTING.md` for validation.
+Read [README](README.md), [architecture](docs/ARCHITECTURE.md) and
+[principles](docs/PRINCIPLES.md) before changes. README maps the documentation;
+follow each topic's maintained guide instead of duplicating its rules here.
 
-## Scope and conventions
+## Before editing
 
-- This is a static GitHub Pages site. There is currently no package manager,
-  application server, or build step. Do not assume npm commands exist.
-- Keep public copy in Traditional Chinese (`zh-Hant`); preserve source attribution
-  and distinguish proposed policy from current public benefits.
-- Use the smallest coherent change. A framework migration is not a prerequisite
-  for SEO fixes. Keep existing fragment links and relative asset paths working.
-- Treat `PL`, `PIL`, `WHO`, calculator constants, public copy, and source references
-  as related data. Inspect all affected occurrences before changing a fact.
-- Preserve the existing preview pages' `noindex` while they remain experiments.
-- Follow the open issue's acceptance criteria. The dated audit is evidence about
-  its baseline, not proof that later code still has the same problem.
+- Check `git status` and preserve unrelated work. Use a review branch.
+- Inspect current files and the issue's acceptance criteria. Dated audits and
+  plans describe their recorded revisions, not proof of a present defect.
+- This is a generated static GitHub Pages site. Development commands and required
+  tools are in [CONTRIBUTING](docs/CONTRIBUTING.md#local-work); production needs no
+  application server. Edit sources, not generated output.
+- Use [CONTENT](docs/CONTENT.md) for factual changes, including all affected
+  policy fields, rates, copy and references. Keep public copy in Traditional Chinese.
+- Find priorities in [ROADMAP](docs/ROADMAP.md). Keep the change scoped to the task.
 
 ## Verification and reporting
 
-- Check `git status` before editing and preserve unrelated work.
-- For documentation changes, check links, referenced files/symbols, and
-  `git diff --check`. Do not add a test framework solely for a prose edit.
-- For runtime changes, run the relevant smoke checks in `docs/CONTRIBUTING.md`;
-  check syntax and browser behavior. Calculator changes need numerical boundary
-  checks. Report missing tools or unperformed checks honestly.
-- Separate source inspection, observed browser behavior, and external measurements
-  in findings. Do not invent Lighthouse scores, index coverage, rankings, or
-  policy verification.
-- Keep commits reviewable. Follow the user's authorization for commits, publishing,
-  issues, and pull requests; avoid changing Pages settings as an incidental step.
-- Keep credentials, private analytics, and personal user data out of this public
-  repository. Do not add tracking of policy-filter selections or calculator inputs.
-
-Use `docs/ROADMAP.md` to find issue priorities. Update architecture/content guidance
-when the corresponding implementation changes; retain the audit's historical date.
+- Follow [the validation guide](docs/CONTRIBUTING.md#validation-by-change-type).
+  Report checks actually performed and any missing tools or owner access.
+- Separate source inspection, browser observations and external measurements.
+  Do not invent policy verification, search outcomes or performance scores.
+- Keep commits reviewable. Follow the user's authorization for commits, remote
+  branches, issues, PRs and publishing; do not change Pages settings incidentally.
+- Never commit credentials, private analytics or personal user data. Follow the
+  [data-collection principle](docs/PRINCIPLES.md#7-minimize-data-collection-and-third-party-cost).
+- Update the relevant maintained guide with implementation changes. Preserve dated
+  evidence and link to newer results rather than rewriting history as current fact.
