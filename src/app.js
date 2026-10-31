@@ -237,4 +237,3 @@ function openFromHash() {
 drawPick(); drawCards(); drawTiles(); drawPanel();
 drawSteps(); setAfter(false); moveTruck(); calc();
 openFromHash(); addEventListener('hashchange', openFromHash);
-
