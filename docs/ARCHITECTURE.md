@@ -2,8 +2,8 @@
 
 This document describes the maintained source and generated static site. It does
 not establish deployment. Historical design rationale is in the
-[architecture decision](ARCHITECTURE-PROPOSAL.md); integration evidence is in the
-[review record](P1-NEXT-STACK.md).
+[architecture decision](ARCHITECTURE-PROPOSAL.md); integration evidence lives in
+pull requests and Git history.
 
 ## Maintained sources and generated output
 
@@ -22,8 +22,8 @@ outputs below. [CONTRIBUTING](CONTRIBUTING.md#local-work) owns tool versions and
 | `src/optional.js` | Optional browser behavior → `assets/js/optional.js` |
 | `src/calculator.mjs` | Proposal rates, provenance, limits and pure calculation → `assets/js/calculator.js`, rate tokens and initial total |
 
-The generator also emits `robots.txt` and `sitemap.xml`. Images, local video and
-the three preview pages are maintained public files, not generated outputs.
+The generator also emits `robots.txt` and `sitemap.xml`. Images and local video
+are maintained public files, not generated outputs.
 The manifest, rather than this map, is the exhaustive public-file list.
 
 ### Public media layout
@@ -31,13 +31,23 @@ The manifest, rather than this map, is the exhaustive public-file list.
 | Directory | Responsibility |
 | --- | --- |
 | `assets/images/portraits/` | Hero, alternate photographs and the transparent portrait used by image export |
-| `assets/images/social/` | Social-preview artwork referenced by homepage and preview-page metadata |
+| `assets/images/social/` | Social-preview artwork referenced by homepage metadata |
 | `assets/videos/` | Local video and its matching `-poster.jpg` image |
 
 Media filenames describe their subject or use, such as `han-ying-orange-cap.jpg`
 and `courage-for-hometown.mp4`. Keep a video's poster with that video. Media is
 maintained directly in these directories; it is not copied from root-level files.
 See [Content](CONTENT.md#media-and-permissions) for replacement and provenance work.
+
+### Repository root
+
+Keep the root limited to public entry/discovery files (`index.html`, `robots.txt`,
+`sitemap.xml`, `_config.yml`) and standard contributor/package entry points
+(`README.md`, `AGENTS.md`, `.gitignore`, `package.json`, `package-lock.json`).
+Browser-test configuration belongs in `tests/playwright.config.mjs`; sources,
+media, tooling and maintained documentation belong in their named directories.
+Disposable experiments and execution records follow the
+[temporary-file policy](CONTRIBUTING.md#temporary-files-and-repository-hygiene).
 
 ## Readable content and enhancement
 
@@ -95,9 +105,9 @@ The build classifies every tracked file as public, excluded or the generated
 docs, tooling and test outputs using that generated configuration. No `.nojekyll`
 or Pages setting change is required. Local Python serving does not apply exclusions.
 
-Robots permits crawling and the sitemap lists only the clean homepage. Preview
-pages retain `noindex`, redirect to the homepage and provide fallback links; they
-remain crawlable so their exclusion directive can be read. Category shares retain
+Robots permits crawling and the sitemap lists only the clean homepage. The old
+`preview-a.html`, `preview-b.html` and `preview-c.html` LINE experiments are retired
+and are not published; after deployment their URLs should return 404. Category shares retain
 `#six-*`; canonical metadata is not an HTTP redirect. See
 [CRAWLABILITY](CRAWLABILITY.md) for HTTP and owner checks and
 [CONTRIBUTING](CONTRIBUTING.md#release-and-rollback) for publication verification.

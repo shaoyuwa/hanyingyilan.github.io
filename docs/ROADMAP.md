@@ -2,7 +2,7 @@
 
 Issue inventory and dependency guide, created 2026-11-01 from baseline `4259eda`
 and expanded to include #17–#20. GitHub issues own acceptance criteria and live
-status. The [integrated review](P1-NEXT-STACK.md) owns fork merge/evidence records;
+status. Pull requests and Git history own fork merge/evidence records;
 a completed local change does not close an owner/deployment acceptance gap.
 
 ## Priority and effort
@@ -22,9 +22,9 @@ were created because the current account does not have repository triage access.
 
 ## Work sequence
 
-The original first-cycle sequence has been implemented in the fork; use the
-[integrated review](P1-NEXT-STACK.md) to identify delivered work before starting an
-issue. The tables below remain an inventory, not a list of untouched defects.
+The original first-cycle sequence has been implemented in the fork; inspect merged
+pull requests and the current source before starting an issue. The tables below
+remain an inventory, not a list of untouched defects.
 
 1. Complete review and production release through [CONTRIBUTING](CONTRIBUTING.md#release-and-rollback).
    Owner-led acceptance for #3, #5, #8, #17 and #18 requires external evidence.

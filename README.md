@@ -35,10 +35,7 @@ not necessarily the current checkout or deployed site.
 | Document | Owns |
 | --- | --- |
 | [Performance](docs/PERFORMANCE.md) | Reproducible experiment, raw reports and measurement limits |
-| [Integrated review](docs/P1-NEXT-STACK.md) | Inclusive review range, merged fork stack and recorded integration evidence |
-| [Original implementation](docs/P1-IMPLEMENTATION.md) | First P1 stack's commits and historical validation |
 | [Architecture decision](docs/ARCHITECTURE-PROPOSAL.md) | Original alternatives, decision and deferred contracts |
-| [Original plan](docs/superpowers/plans/2026-11-01-p1-stack.md) | Historical five-ticket sequence and outcome links |
 | [SEO audit](docs/SEO-AUDIT.md) | Evidence from baseline `4259eda`, inspected 2026-11-01 |
 
 Start with Architecture and Principles; use the task-specific guide next. Keep
@@ -57,8 +54,12 @@ the root and under `assets/`. Public media is grouped under `assets/images/` and
 [architecture map](docs/ARCHITECTURE.md#maintained-sources-and-generated-output)
 identifies each source and its output.
 
-Review progress and remaining owner acceptance are recorded in the
-[integrated review](docs/P1-NEXT-STACK.md). The
+Issues and pull requests record review progress and merge evidence; the
+[roadmap](docs/ROADMAP.md) links remaining owner acceptance. The
 [baseline audit](docs/SEO-AUDIT.md#http-and-source-evidence) records the observed
 deployment configuration; follow the
 [release procedure](docs/CONTRIBUTING.md#release-and-rollback) before publishing.
+
+Keep experiments and agent working files outside tracked source; the
+[temporary-file policy](docs/CONTRIBUTING.md#temporary-files-and-repository-hygiene)
+defines what belongs in the repository and what must be deleted after use.

@@ -28,12 +28,11 @@ export function inspectHTML(html,data,sources){
 export async function checkHTTP(base){
  const data=loadPolicies(),sources=JSON.parse(readFileSync('content/sources.json','utf8'));
  const results=[];
- for(const path of ['', 'index.html','?utm_source=crawl-check','preview-a.html','preview-b.html','preview-c.html','robots.txt','sitemap.xml']){
+ for(const path of ['', 'index.html','?utm_source=crawl-check','robots.txt','sitemap.xml']){
   const url=new URL(path,base),res=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(15000)});
   assert.equal(res.status,200,`${url} HTTP status`);const html=await res.text();
   let coverage;
-  if(path.startsWith('preview-'))assert.match(html,/<meta\s+name="robots"\s+content="noindex(?:,follow)?"/);
-  else if(path==='robots.txt'){assert.match(html,/User-agent: \*\s+Allow: \//);assert.ok(html.includes('Sitemap: https://hanyingyilan.github.io/sitemap.xml'));}
+  if(path==='robots.txt'){assert.match(html,/User-agent: \*\s+Allow: \//);assert.ok(html.includes('Sitemap: https://hanyingyilan.github.io/sitemap.xml'));}
   else if(path==='sitemap.xml')assert.ok(html.includes('<loc>https://hanyingyilan.github.io/</loc>'));
   else coverage=inspectHTML(html,data,sources);
   results.push({url:String(url),status:res.status,...coverage});

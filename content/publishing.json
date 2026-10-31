@@ -23,9 +23,6 @@
     "assets/videos/courage-for-hometown-poster.jpg",
     "assets/videos/courage-for-hometown.mp4",
     "index.html",
-    "preview-a.html",
-    "preview-b.html",
-    "preview-c.html",
     "robots.txt",
     "sitemap.xml"
   ],
@@ -41,10 +38,13 @@
     "tests",
     "package.json",
     "package-lock.json",
-    "playwright.config.mjs",
     "node_modules",
     "test-results",
     "playwright-report",
-    ".superpowers"
+    ".superpowers",
+    ".scratch",
+    "_site",
+    ".jekyll-cache",
+    ".jekyll-metadata"
   ]
 }

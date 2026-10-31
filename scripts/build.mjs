@@ -56,7 +56,6 @@ export function generate(){
  for(const path of publishing.public)if(!outputs[path]&&!existsSync(path))throw Error(`missing public file: ${path}`);
  for(const path of Object.keys(outputs))if(path!=='_config.yml'&&!publishing.public.includes(path))throw Error(`output not public: ${path}`);
  validateHTML(html,outputs);
- for(const file of ['preview-a.html','preview-b.html','preview-c.html'])validateHTML(readFileSync(file,'utf8'),outputs);
  return outputs;
 }
 export function writeOutputs(outputs,check=false,root='.'){

@@ -33,8 +33,10 @@ policy IDs and existing external links.
 Apply the same rule to documentation: one maintained home per topic, linked from
 other guides. Separate design rules, current behavior, procedures, priorities and
 dated evidence so their responsibilities do not overlap. Together the guides must
-cover the contributor lifecycle. Historical records retain their date/revision and
-link to current guidance; they are not a second set of live instructions.
+cover the contributor lifecycle. Retain dated evidence when it supports a durable
+decision, and link it to current guidance. Disposable plans and review-session logs
+stay outside tracked documentation; follow the
+[temporary-file policy](CONTRIBUTING.md#temporary-files-and-repository-hygiene).
 
 ## 4. Keep deployment simple and reviewable
 
