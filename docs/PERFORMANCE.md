@@ -55,17 +55,22 @@ switching are covered by smoke checks; live Facebook playback remains external.
 
 ## Reproduce
 
-Run `npm ci`, `npm run check`, and install the pinned Playwright Chromium. In one
+Follow [development setup and validation](CONTRIBUTING.md) to install the locked
+dependencies and Chromium. This benchmark specifically uses port 8123. In one
 terminal run `python3 -m http.server 8123 --bind 127.0.0.1`; in another run
 `node scripts/measure-performance.mjs /tmp/performance-report.json`. Use the
-baseline commit for before, and the reviewed performance branch for after. Run
+baseline product tree for before and commit `23679d6` for after. The before tree
+predates the benchmark script: run the same script from `23679d6` in each checkout,
+with its locked dependencies available, so the working directory and served files
+match the intended revision. The raw after report records the baseline SHA plus
+an uncommitted product diff; `23679d6` contains that measured product change. Run
 serially on an idle machine for a stronger timing comparison. Do not run a
 benchmark against an unrelated process on port 8123. Output paths are explicit;
 reports contain only synthetic local observations, no user analytics.
 
 The browser test first failed when eager requests occurred, then passed after
-removing prefetch and the hidden `src`. Integrated checks: 21 Node tests and 20
-Chromium tests, including citation/no-JS, dialog/keyboard, calculator, sharing,
-responsive and photo-loading cases. Inspect mobile/desktop screenshots when
-repeating. Field targets remain p75 LCP ≤2.5s, INP ≤200ms, CLS ≤0.1, pending enough
+removing prefetch and the hidden `src`. At this experiment stage, 21 Node and 20
+Chromium tests passed; the later integrated verification is recorded in
+[P1-NEXT-STACK](P1-NEXT-STACK.md#recorded-verification). Inspect mobile/desktop
+screenshots when repeating. Field targets remain p75 LCP ≤2.5s, INP ≤200ms, CLS ≤0.1, pending enough
 actual field data; local observations cannot establish them.

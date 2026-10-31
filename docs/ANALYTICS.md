@@ -2,16 +2,17 @@
 
 Deployment is pending an owner-selected account and public site configuration.
 No analytics script, token, account, subscription or event collection was added.
-For this short campaign site, Cloudflare's manual Web Analytics beacon is the
-first option to evaluate with the owner because it has no service fee or hosting
-migration. This is a recommendation, not an account or deployment decision.
-Search Console remains useful separately for search performance (#3).
+The dated evaluation favored Cloudflare's manual beacon for its then-free service
+and lack of hosting migration. This records that evaluation, not a fresh quote or
+an account/deployment decision. Search measurement has a separate
+[Search Console handoff](SEARCH-CONSOLE.md).
 
-## Current provider comparison
+## Provider comparison at inspection
 
 Official pricing/docs were inspected on 2026-11-01. Dollar amounts are USD,
-before any applicable tax; refresh the quote before a purchase. No paid service
-was purchased. Estimates exclude maintainer time.
+before any applicable tax. Claims of “current” offerings in this snapshot refer
+to that inspection date; recheck pricing, limits and collection behavior before
+selection. No paid service was purchased. Estimates exclude maintainer time.
 
 | Option | One-month service budget | Coverage and maintenance | Retention/export/exit |
 | --- | --- | --- | --- |
@@ -39,6 +40,9 @@ A calendar month or a previously used trial may not fit a new 30-day trial;
 budget one paid month if needed, with no automatic renewal assumed authorized.
 
 ## Collection and privacy constraints
+
+This section specifies the integration requirements under the broader
+[data-minimization principle](PRINCIPLES.md#7-minimize-data-collection-and-third-party-cost).
 
 The [Plausible data policy](https://plausible.io/data-policy) describes individual
 event/session records behind aggregate dashboards, daily identifiers derived from

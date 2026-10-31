@@ -1,7 +1,8 @@
 # Engineering and content principles
 
-Initial principles for review, 2026-11-01. These guide future changes; they do not
-assert that all current behavior already complies. The [roadmap](ROADMAP.md)
+Maintained decision rules, established 2026-11-01. These do not assert that every
+current behavior already complies. Procedures and evidence live in the guides
+listed in the [documentation map](../README.md#documentation-map). The [roadmap](ROADMAP.md)
 connects present gaps to implementation issues.
 
 ## 1. Make information readable before enhancing it
@@ -25,9 +26,15 @@ or permissions. A code review is not independent verification of public claims.
 ## 3. Use one maintained source for each fact
 
 Policy data, calculators, generated HTML, and metadata should not drift apart.
-Centralize repeated values when changing the relevant feature. If a static
-generator is introduced, document its inputs and command and verify generated
-output against them. Preserve stable policy IDs and existing external links.
+Centralize repeated values when changing the relevant feature. Document generator
+inputs and commands, and verify generated output against them. Preserve stable
+policy IDs and existing external links.
+
+Apply the same rule to documentation: one maintained home per topic, linked from
+other guides. Separate design rules, current behavior, procedures, priorities and
+dated evidence so their responsibilities do not overlap. Together the guides must
+cover the contributor lifecycle. Historical records retain their date/revision and
+link to current guidance; they are not a second set of live instructions.
 
 ## 4. Keep deployment simple and reviewable
 

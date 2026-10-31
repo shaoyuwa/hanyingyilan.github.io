@@ -1,9 +1,9 @@
 # Prioritized improvement roadmap
 
-Created 2026-11-01 from baseline `4259eda6c524b90da846c3acb0ab957642ddd427`.
-All 16 implementation tickets below are open at creation. This is a planning
-snapshot; GitHub issues are the source of truth for subsequent status changes.
-No production changes are included in the initial documentation commit.
+Issue inventory and dependency guide, created 2026-11-01 from baseline `4259eda`
+and expanded to include #17–#20. GitHub issues own acceptance criteria and live
+status. The [integrated review](P1-NEXT-STACK.md) owns fork merge/evidence records;
+a completed local change does not close an owner/deployment acceptance gap.
 
 ## Priority and effort
 
@@ -20,22 +20,23 @@ commitments; owner access, source verification and review can add elapsed time.
 Priorities are in issue titles and bodies. No priority labels or Project fields
 were created because the current account does not have repository triage access.
 
-## Suggested implementation sequence
+## Work sequence
 
-1. Start owner-led indexing baseline **#3** and performance baseline **#5** while
-   implementing canonical consistency **#2** and complete initial HTML **#1**.
-2. Coordinate source modeling **#8** with #1; ship crawler artifacts **#4** once
-   canonical URLs are settled. Add the relevant regression checks from **#11**.
-3. Use measured results for performance changes **#5**. Address calculator consistency
-   **#12** and keyboard/focus behavior **#13** alongside the first engineering cycle.
-4. Add substantive category pages **#6** only after the content source is settled;
-   align their metadata **#7** and update the sitemap. Schema **#9** follows verified
-   identity/source information. Video work **#10** depends on available source media.
-5. Complete data cleanup **#14**, modularization **#15**, and lifecycle/provenance
-   work **#16**. Assign post-election ownership early even if implementation is later.
+The original first-cycle sequence has been implemented in the fork; use the
+[integrated review](P1-NEXT-STACK.md) to identify delivered work before starting an
+issue. The tables below remain an inventory, not a list of untouched defects.
 
-The site does not need a framework migration before SEO work. No ranking increase,
-rich result, indexing deadline, or performance score is promised by these tickets.
+1. Complete review and production release through [CONTRIBUTING](CONTRIBUTING.md#release-and-rollback).
+   Owner-led acceptance for #3, #5, #8, #17 and #18 requires external evidence.
+2. Evaluate category pages #6 after the shared content model, coordinating metadata
+   #7 and sitemap #4. Schema #9 requires verified identity/source information;
+   video #10 requires available source media. Machine-readable data #19 needs a
+   demonstrated consumer and the source/schema dependencies recorded in its issue.
+3. Address remaining data cleanup #14, optional-feature isolation #15 and lifecycle/
+   provenance #16. Assign post-election ownership early, even if other work is later.
+
+The site does not need a framework migration before SEO work. These tickets do
+not promise ranking increases, rich results, indexing deadlines or performance scores.
 
 ## SEO backlog
 
@@ -63,6 +64,18 @@ rich result, indexing deadline, or performance score is promised by these ticket
 | [ENG-05 / #15](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/15) | P2 | Separate content and optional features without requiring a framework migration | M | [SEO-01 / #1](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/1), [ENG-01 / #11](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/11), [ENG-02 / #12](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/12) |
 | [ENG-06 / #16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16) | P2 | Document release ownership, media provenance and post-election maintenance | M | None |
 
+## Cross-cutting follow-ups and architecture
+
+These supplement the original ten SEO and six engineering tickets. Their acceptance
+criteria reference existing work rather than requesting duplicate implementations.
+
+| Issue | Priority | Scope | Dependencies / coordination |
+| --- | --- | --- | --- |
+| [#17](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/17) | P1 | One-month analytics choice, minimal integration and shutdown | Owner account/configuration; #3 search metrics and #5 performance; [handoff](ANALYTICS.md) |
+| [#18](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/18) | P1 | Crawler access, complete HTTP content and owner observations | #1, #2, #3, #4, #8; coordinate #9; [handoff](CRAWLABILITY.md) |
+| [#19](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/19) | P2 | Evaluate useful machine-readable policy data; no format presumed necessary | #1, #8, #9 |
+| [#20](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/20) | P1 | Architecture decision and original five-ticket sequence | Coordinates #11 → #1 → #2 → #4 → #12; [decision record](ARCHITECTURE-PROPOSAL.md) |
+
 ## Using the tickets
 
 Each issue contains source evidence, bounded work and checkable acceptance criteria.
@@ -74,7 +87,7 @@ Console verification needs an authorized site owner; content/source questions ne
 someone able to verify the material; code changes need implementation and review.
 No named owner or deadline has been invented by this audit.
 
-Use the [SEO audit](SEO-AUDIT.md) for measured/observed evidence and its limitations,
+Use the dated [SEO audit](SEO-AUDIT.md) for baseline evidence and its limitations,
 the [principles](PRINCIPLES.md) for design constraints, and the
 [contributor guide](CONTRIBUTING.md) for validation and release steps. Close an issue
 only after its required checks are complete; record external-access blockers and

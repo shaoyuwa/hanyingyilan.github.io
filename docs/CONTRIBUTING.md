@@ -2,103 +2,124 @@
 
 ## Local work
 
-Inspect `git status` first and use a review branch for changes. The historical baseline had no tooling. Current development uses Node.js 22.22+ (22.x) or 24.8+ and
-pinned development-only Playwright and HTML-validate. Run `npm ci`, `npm run build`, `npm run check`,
-`npm test`, then `npx playwright install chromium` and `npm run test:e2e`. CI runs
-freshness, native tests, and Chromium smoke checks. Generated public files must be
-committed with source changes.
-Python 3 provides a sufficient local static server:
+Inspect `git status`, preserve unrelated work and use a review branch. To preview
+committed static output, only Python 3 is needed:
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open <http://localhost:8000/>. Assets use relative paths. External fonts/players
-need network access; core information should tolerate their failure. Clipboard and
-sharing depend on browser support and context, so validate their fallback paths too.
+Open <http://127.0.0.1:8000/>; stop with Ctrl-C. Use HTTP instead of `file://`.
+This server exposes repository files and does not apply Pages exclusions.
 
-## Lightweight checks
-
-Always inspect the diff and whitespace:
+For source development, use the Node.js range in [`package.json`](../package.json).
+The [CI workflow](../.github/workflows/check.yml) selects its tested major version. Install the locked
+development dependencies and generate output:
 
 ```sh
-git diff --check
-git diff --stat
+npm ci
+npm run build
 ```
 
-`npm test` includes syntax checks for public scripts and negative checks proving
-that malformed nesting, duplicate IDs, unknown source classes, missing
-resources/fragments and stale output are rejected. Freshness mutation tests use
-temporary fixtures, and generation is checked twice for deterministic results.
-`npm run test:e2e` starts a Python HTTP server automatically.
+Edit the [maintained sources](ARCHITECTURE.md#maintained-sources-and-generated-output)
+and commit generated files with their inputs. Production needs no Node runtime.
+Pinned Playwright and HTML-validate are development-only dependencies.
 
-For documentation-only changes, verify relative links, filenames, commands and
-claims against the source. There is no reason to install an application test stack
-for prose alone.
+## Documentation maintenance
 
-## Browser smoke checks for runtime changes
+Use the [documentation map](../README.md#documentation-map) to locate the owning
+guide before writing. Keep each instruction, operational status and decision in
+one maintained home; use links when another topic depends on it. A brief summary
+may orient readers, but should not become a second checklist or configuration
+reference. Source files own executable values; tests may deliberately repeat
+expected results to detect regressions.
 
-Run checks relevant to the diff and record browser/device details and failures.
+Separate current behavior (Architecture), decision rules (Principles), editorial
+work (Content), contributor procedures (this guide), issue sequencing (Roadmap)
+and service-specific operations (their respective guides). New topics need an
+explicit owner in the map only when none of the existing guides covers them.
+Review all affected links when moving or renaming a section.
+
+Keep dated audits, experiments and implementation records scoped to their
+revision. Append a dated correction or follow-up with evidence instead of replacing
+an old result with today's result. Link historical plans to the current guide so
+their obsolete commands or completed tasks cannot be mistaken for live work.
+
+## Validation by change type
+
+For every change, inspect the diff and run `git diff --check`.
+
+| Change | Required validation |
+| --- | --- |
+| Documentation only | Resolve relative links and heading anchors; verify referenced files, symbols, commands and claims against source; preserve historical scope/dates |
+| Data, markup, styles, scripts or generation | Run freshness/native checks below and the browser checks relevant to the diff |
+| Calculator | Also check zero/default/maximum, individual age groups, month boundaries, invalid inputs and rapid updates |
+| URLs, crawler or publishing configuration | Also follow [HTTP checks](CRAWLABILITY.md#reproducible-checks) and the release-output checks below |
+| Performance | Use the conditions and reproduction procedure in [PERFORMANCE](PERFORMANCE.md#reproduce) |
+
+Do not install a test framework solely for prose. For implementation changes:
+
+```sh
+npm run check
+npm test
+npx playwright install chromium
+npm run test:e2e
+```
+
+Freshness checks reject stale output. Native tests cover data/source validation,
+HTML nesting, script syntax, unique IDs, resources/fragments, URLs, publishing,
+numerical boundaries and HTTP-content assertions. Negative tests use temporary
+fixtures, including stale generated files; repeated generation checks determinism.
+The browser suite starts its own Python server. CI runs freshness, native tests
+and Chromium checks through [the workflow](../.github/workflows/check.yml).
+
+## Browser smoke checks
+
+Run checks relevant to the diff; record revision, browser/device, failures and
+unperformed checks. External fonts/players need network access; test core behavior
+with them blocked as well as live media where available.
 
 | Area | Check |
 | --- | --- |
-| Startup | Heading, six categories, four filters and default cards render; no uncaught application errors |
-| Categories | All six open; details expand/collapse; direct `#six-welfare` load works |
-| Filters | Multi-select, clear and select-all work with documented semantics |
-| Calculator | Default 95,200; all zero 0; maximum controls 723,200; months 0 and 24; counts cannot exceed bounds |
-| Comparison | All three stops and both states show matching text and graphic |
-| Sharing | Clipboard success/failure, LINE URL, image dialog, save and unsupported-share fallback |
-| Accessibility | Keyboard focus, modal close/return, slider names, large text, dark/light theme, reduced motion |
-| Responsive | Narrow 320px viewport, common mobile width, desktop, 200% browser zoom |
-| Media | Portrait cycle, local video/poster, embedded-player fallback links |
-| Optional features | Game open/close/restart and no interference with other controls; animations remain optional |
+| Startup/failure | Heading and complete overview remain readable with no JS, core/data blocked, optional script blocked or Canvas unavailable; normal startup has no uncaught application errors |
+| Categories/details | All six open; details expand/collapse; direct `#six-welfare` and initial stamp work |
+| Filters | Multi-select, clear and select-all match [documented semantics](ARCHITECTURE.md#readable-content-and-enhancement) |
+| Calculator | Default 95,200; all zero 0; maximum 723,200; months 0/24; counts stay within limits; rapid updates settle on the last result and announcement |
+| Comparison | Three stops and both states show matching text and graphic |
+| Sharing | Clipboard success/failure, LINE URL, image dialog, latest asynchronous image, save and unsupported-share fallback |
+| Accessibility | Keyboard names/focus, modal containment/close/return, skip navigation, large text, theme and reduced motion |
+| Responsive | 320px, common mobile width, desktop and native 200% browser zoom |
+| Media | Photos load on selection, local video/poster and embedded-player fallback links |
+| Optional features | Game open/close/restart; game input does not intercept unrelated controls |
 
-The image dialog uses native `showModal()` background inertness, explicit Tab wrap,
-Escape/close cleanup and opener restoration. The game uses its native throw button;
-there is no global Space listener. Skip navigation and measured sticky-header
-clearance preserve keyboard access. Chromium covers focus, names, 320px large/dark
-layout and CSS zoom. Real screen-reader, native browser zoom and other-engine
-spot checks remain owner validation; automation is not a substitute for those.
-The complete non-JavaScript overview is generated from all 23 policy records.
-
-Calculator values above are regression expectations for the baseline constants,
-not benefit advice. Recalculate expectations when reviewed source assumptions change.
-
-## SEO validation for relevant changes
-
-Compare response HTML with the rendered DOM. Check titles, descriptions, canonical
-URL, headings, content coverage, source anchors and any JSON-LD. Verify live status
-codes for canonical pages, duplicate variants, media and an unknown path. Preserve
-preview `noindex` and do not block crawling of pages that must expose that directive.
-
-Use the [SEO audit](SEO-AUDIT.md) and issue acceptance criteria. A private Search
-Console owner must verify actual indexing and Google-selected canonical; source
-inspection alone cannot establish either. Performance reports must state test
-conditions and distinguish lab data from field Core Web Vitals.
+Calculator totals are regression expectations for the proposal model, not benefit
+advice. Recalculate them when reviewed source assumptions change. Chromium tests
+include CSS zoom; this does not replace native browser zoom, actual screen readers
+or other-engine checks. Historical coverage and unperformed checks belong in the
+[review record](P1-NEXT-STACK.md), not an assertion that every release passed.
 
 ## Release and rollback
 
-1. Review the exact diff, source changes and relevant validation evidence. Keep
-   documentation, factual changes, and broad refactors easy to assess separately.
-2. Commit to the review branch. Record the source commit and the checks actually run.
-3. Integrate through the maintainers' review process. The observed Pages source is
-   `main` at `/`; merging there may publish the change. Do not change Pages settings
-   or assume a feature branch is a private staging site.
-4. Check the Pages deployment/build status and then the live page, assets, fragment
-   links, metadata and response codes. Record deployment time separately from a
-   factual-content review date.
-5. If a release must be rolled back, revert the offending commit through the same
-   review/release process and verify the resulting deployment. Avoid rewriting
-   shared history or assuming a local reset changes the deployed site.
+1. Review the exact diff and relevant evidence. Keep factual changes, documentation
+   and broad refactors easy to assess separately. Commit to the review branch and
+   record the revision and checks actually run.
+2. Integrate through the maintainers' review process. The observed production Pages
+   source is `main:/`; merging upstream there may publish. Fork merge status is not
+   deployment evidence. Do not change Pages settings incidentally.
+3. For publishing changes, compare a Pages-compatible Jekyll build's `_site` file
+   set with `content/publishing.json`. Check excluded source/docs and all public
+   assets. The manifest must classify new tracked files; Python serving cannot
+   verify Jekyll exclusions. Record the Jekyll/Ruby versions and any unavailable check.
+4. Check the actual Pages build/deployment, then live status codes, assets, fragment
+   links, metadata and crawler output. Fetch an excluded source/doc path and an
+   unknown path as well as `/`, `/index.html`, query variants and previews. Preview
+   `noindex` must remain crawlable. Record release time separately from factual review.
+5. Have the authorized owner complete [Search Console](SEARCH-CONSOLE.md) and any
+   relevant [crawler-service observations](CRAWLABILITY.md#owner-and-observation-work-still-pending).
+   Source checks do not establish Google-selected canonical or indexing.
+6. Roll back by reverting the offending commit through the same review/release
+   process and verifying the resulting deployment. Do not rewrite shared history
+   or assume a local reset changes the live site.
 
-`content/publishing.json` is the reviewed public-file manifest. The generator
-writes `_config.yml` exclusions for legacy Pages Jekyll. Add intended public assets
-to the manifest; unknown tracked files fail checks. Contributor/source/tooling
-paths are excluded from publishing, not merely omitted from the sitemap. A local
-Python server still exposes repository files; it does not model Jekyll exclusions.
-Local Jekyll 3.10.0 output was checked against the manifest during fork integration;
-see P1-IMPLEMENTATION.md. Inspect actual Pages output and public URLs after
-deployment before marking publishing accepted.
-
-Maintainer roles, media provenance and post-election ownership need to be assigned
-by the repository maintainers; see [#16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16).
+Maintainer roles, media permissions and post-election ownership remain tracked in
+[#16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16).
