@@ -12,8 +12,8 @@ python3 -m http.server 8000 --bind 127.0.0.1
 Open <http://127.0.0.1:8000/>; stop with Ctrl-C. Use HTTP instead of `file://`.
 This server exposes repository files and does not apply Pages exclusions.
 
-For source development, use the Node.js range in [`package.json`](../package.json)
-(currently 22.22+ within 22.x, or 24.8+). CI uses Node 22. Install the locked
+For source development, use the Node.js range in [`package.json`](../package.json).
+The [CI workflow](../.github/workflows/check.yml) selects its tested major version. Install the locked
 development dependencies and generate output:
 
 ```sh
@@ -24,6 +24,26 @@ npm run build
 Edit the [maintained sources](ARCHITECTURE.md#maintained-sources-and-generated-output)
 and commit generated files with their inputs. Production needs no Node runtime.
 Pinned Playwright and HTML-validate are development-only dependencies.
+
+## Documentation maintenance
+
+Use the [documentation map](../README.md#documentation-map) to locate the owning
+guide before writing. Keep each instruction, operational status and decision in
+one maintained home; use links when another topic depends on it. A brief summary
+may orient readers, but should not become a second checklist or configuration
+reference. Source files own executable values; tests may deliberately repeat
+expected results to detect regressions.
+
+Separate current behavior (Architecture), decision rules (Principles), editorial
+work (Content), contributor procedures (this guide), issue sequencing (Roadmap)
+and service-specific operations (their respective guides). New topics need an
+explicit owner in the map only when none of the existing guides covers them.
+Review all affected links when moving or renaming a section.
+
+Keep dated audits, experiments and implementation records scoped to their
+revision. Append a dated correction or follow-up with evidence instead of replacing
+an old result with today's result. Link historical plans to the current guide so
+their obsolete commands or completed tasks cannot be mistaken for live work.
 
 ## Validation by change type
 
