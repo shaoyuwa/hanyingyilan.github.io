@@ -40,8 +40,8 @@ with exceptions handled. Category shares retain `#six-*`; no political preferenc
 or calculator-input telemetry is added. Fonts and Facebook players are external;
 local video has native controls, poster, and direct player fallback links.
 
-The countdown uses 2026-11-28 Taipei midnight and updates on load. Photo prefetch,
-11 Facebook players and optional animation costs remain subjects for later work.
+The countdown uses 2026-11-28 Taipei midnight and updates on load. Alternate photos load only on selection. The measured local transfer reduction
+and remaining font, 11-player and animation costs are recorded in PERFORMANCE.md.
 `preview-a.html`, `preview-b.html`, and `preview-c.html` preserve `noindex`, redirect
 to the homepage and retain fallback links.
 
