@@ -37,7 +37,7 @@ function card(x, opts = {}) {
       <h3>${esc(x.t)}</h3>${why}
       <ul ${opts.open ? '' : 'hidden'}>${x.body.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
       <div class="acts">${acts}</div>
-      <div class="meta">出處：${esc(x.ref)}</div>
+      <div class="meta">出處：${esc(x.ref)}</div>${window.POLICY_CITATIONS[x.id]}
     </div>`;
   el.querySelector('[data-act=more]').onclick = e => {
     const ul = el.querySelector('ul'); const o = ul.hidden;

@@ -76,7 +76,13 @@
       "who": {
         "youth": "外國旅客與交流增加，街上的路牌與店家介面更容易被看懂。",
         "shop": "多語標牌讓外國客人更容易找到你的店。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "intl-culture",
@@ -91,7 +97,13 @@
       "who": {
         "parent": "鄉土與民俗教育會進到孩子的學習與活動裡。",
         "youth": "文化共創基地提供青年發揮的場地。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "intl-leawood",
@@ -106,7 +118,13 @@
       "who": {
         "youth": "經貿與文化互訪，可能帶來青年的國際交流機會。",
         "shop": "實質經貿互訪，讓在地特色商品有機會走出去。"
-      }
+      },
+      "sourceRefs": [
+        "four-policies"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tr-3station",
@@ -121,7 +139,13 @@
       "who": {
         "rider": "換車、轉乘的路線會被一起整理，少繞路。",
         "youth": "通勤與返鄉往來更順。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tr-parking",
@@ -136,7 +160,14 @@
       "who": {
         "rider": "找車位是最直接的受益：目標增加約一千個。",
         "shop": "客人比較好停車，老街生意比較不被卡住。"
-      }
+      },
+      "sourceRefs": [
+        "six-new",
+        "four-policies"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tr-viaduct",
@@ -151,7 +182,13 @@
       "who": {
         "shop": "東港橋拆除後，東門夜市攤商會有轉型與安置的輔導。",
         "parent": "高架後空間可能多出寵物公園等休閒場所。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tr-walk",
@@ -167,7 +204,14 @@
         "elder": "走路、過馬路更安全。",
         "parent": "推娃娃車、牽小孩走路更安心。",
         "rider": "行人與車輛各走各的，秩序變好。"
-      }
+      },
+      "sourceRefs": [
+        "campaign",
+        "team-unavailable"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "partial"
     },
     {
       "id": "ct-renew",
@@ -182,7 +226,13 @@
       "who": {
         "shop": "商圈景觀與老建築一起升級。",
         "clean": "老舊建築與街區美化，市容更整潔。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "ct-reserve",
@@ -196,7 +246,13 @@
       ],
       "who": {
         "rider": "公共設施保留地釋出後，有機會改成更好用的空間。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "ct-play",
@@ -212,7 +268,13 @@
       ],
       "who": {
         "parent": "家附近十分鐘內有地方玩，夏天的公園也比較涼。"
-      }
+      },
+      "sourceRefs": [
+        "team-unavailable"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "ct-cl-hire",
@@ -226,7 +288,13 @@
       ],
       "who": {
         "clean": "人力補足，工作分配更合理；進用過程公開透明。"
-      }
+      },
+      "sourceRefs": [
+        "clean-report"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "ct-cl-routes",
@@ -242,7 +310,13 @@
       "who": {
         "elder": "不用再拿著垃圾追垃圾車。",
         "clean": "路線與班次增加，趕點壓力變小。"
-      }
+      },
+      "sourceRefs": [
+        "clean-report"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "ct-cl-brand",
@@ -259,7 +333,14 @@
       ],
       "who": {
         "clean": "制服兼顧美學、機能與安全，隊員的付出被更多人看見。"
-      }
+      },
+      "sourceRefs": [
+        "clean-report",
+        "clean-video"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tour-old",
@@ -275,7 +356,14 @@
       "who": {
         "shop": "老店被串成一條路線，遊客更容易走進來。",
         "youth": "老屋點燈有補貼，適合想回鄉開店的人。"
-      }
+      },
+      "sourceRefs": [
+        "six-new",
+        "four-policies"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tour-ww2",
@@ -289,7 +377,13 @@
       "who": {
         "shop": "新增一條歷史觀光路線，帶來新客群。",
         "parent": "適合帶孩子認識歷史的新去處。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "tour-industry",
@@ -303,7 +397,13 @@
       ],
       "who": {
         "shop": "商場與市場被活化，人流會回來。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "rs-water",
@@ -318,7 +418,13 @@
         "safe": "水路整理後，排水與環境一起改善。",
         "parent": "有行舟體驗與文學步道可以散步。",
         "shop": "水路沿線增加遊客停留的理由。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "rs-safe",
@@ -334,7 +440,13 @@
         "safe": "巷道少死角；大雨時學校與公園可以先蓄水。",
         "elder": "夜間巷弄更安全。",
         "parent": "孩子上下學的巷道更安全。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "wf-care",
@@ -349,7 +461,13 @@
       ],
       "who": {
         "parent": "假日與夜間有臨托，下雨天也有地方放電。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "wf-birth",
@@ -363,7 +481,15 @@
       ],
       "who": {
         "parent": "新生兒一次 {{rate.birthWan}} 萬，兩歲前每月再 {{rate.nutritionMonthly}}。"
-      }
+      },
+      "sourceRefs": [
+        "campaign",
+        "newtalk-benefits",
+        "birth-report"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "partial"
     },
     {
       "id": "wf-house",
@@ -377,7 +503,13 @@
       "who": {
         "youth": "租屋與買房的負擔是青年留下來的關鍵。",
         "parent": "年輕家庭的居住壓力變小。"
-      }
+      },
+      "sourceRefs": [
+        "six-new"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "unverified"
     },
     {
       "id": "wf-elder",
@@ -392,7 +524,16 @@
       ],
       "who": {
         "elder": "禮金加碼，社區據點與長青食堂變多。"
-      }
+      },
+      "sourceRefs": [
+        "six-new",
+        "elder-proposal",
+        "newtalk-benefits",
+        "current-elder"
+      ],
+      "status": "proposal",
+      "reviewed": null,
+      "verification": "partial"
     },
     {
       "id": "wf-egg",
@@ -406,7 +547,13 @@
       "who": {
         "parent": "想延後生育的人，可以多一筆補助。",
         "youth": "規劃生涯與生育時程的人多一個選擇。"
-      }
+      },
+      "sourceRefs": [
+        "campaign"
+      ],
+      "status": "proposal",
+      "reviewed": "2026-11-01",
+      "verification": "reviewed"
     }
   ]
 }

@@ -19,10 +19,29 @@ existing site; it does not validate the underlying political or benefit claims.
 6. Review the footer date if substantive public content changed. A documentation
    edit or formatting change does not itself make policy facts newly reviewed.
 
-Cards currently show `ref` as plain text; the linked source list is separate in
-`#sources`. A structured source registry is planned in
-[#8](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/8). Until then,
-check both places manually and identify unavailable sources honestly.
+`content/sources.json` owns readable source links, publication dates, actual original-text
+review dates and source status. Each policy has `sourceRefs`, `status`, `verification`
+and nullable `reviewed` (complete policy review). Partial source access is not a
+complete review. Original `ref` attribution remains visible alongside qualifications.
+`src/sources.mjs` validates references and renders identical citations for initial
+HTML and enhanced cards. Unknown references and unsafe URL schemes fail builds.
+
+On 2026-11-01 the campaign page and Newtalk benefits report were read. Campaign
+birth/nutrition/egg-freezing and broad pedestrian-safety text was available;
+Newtalk reports proposal rates, not enacted eligibility. Other original links are
+retained with unverified attribution. CNEWS returned 403, LTN could not be opened,
+Facebook access failed, and the current government notice timed out in this pass.
+These failures do not establish link rot. The earlier calculator source inspection
+is recorded below, separately from this pass. The campaign site's self-description
+does not independently prove shared management with this repository.
+
+For corrections, maintainers should request a policy ID, original URL/date and the
+specific claim; review the original and update policy/source fields together, with
+a dated commit. The public page links this fork's issue tracker; do not submit
+personal benefit applications there. Check links manually before substantive
+updates and at retirement; retain unavailable-source notes rather than inventing
+replacement sources. Volatile video view counts were removed because no maintained
+measurement date was available; video titles and direct links remain.
 
 ## Updating numerical assumptions
 
