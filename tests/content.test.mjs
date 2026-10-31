@@ -12,3 +12,5 @@ test('initial HTML includes all titles, details, attribution and policy anchors'
  for(const p of data.PL){for(const text of [p.t,p.ref,...p.body])assert.ok(html.includes(escape(text)),`${p.id}: ${text}`);assert.equal(html.split(`id="policy-${p.id}"`).length,2)}
  assert.match(html,/<h1[^>]*>[^<]*韓瑩/);
 });
+
+test("unknown source classes rejected",()=>{const bad=structuredClone(data);bad.PL[0].src="unknown";assert.throws(()=>validate(bad),/unknown source/)});
