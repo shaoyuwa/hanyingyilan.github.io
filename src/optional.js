@@ -10,7 +10,6 @@
   };
   const next = () => show(i + 1 >= LIST.length ? -1 : i + 1);
   box.addEventListener('click', next); btn.addEventListener('click', next);
-  addEventListener('load', () => setTimeout(() => LIST.forEach(p => { const im = new Image(); im.src = p.src; }), 1500));
 })();
 
 /* hair overlay shares the portrait image */
