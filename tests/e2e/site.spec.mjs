@@ -18,3 +18,5 @@ for(const mode of ['no-js','blocked-core','blocked-optional','canvas-null'])test
  if(['blocked-optional','canvas-null'].includes(mode)){await expect(page.locator('#tiles .tile')).toHaveCount(6);await page.locator('#tiles .tile').first().click();await expect(page.locator('#panel')).toContainText('國際');await expect(page.locator('#tot')).toHaveText('95,200');}
  await context.close();
 });
+
+test('direct category stamps after optional initialization',async({page})=>{await page.goto('/#six-welfare');await expect(page.locator('#pcount')).toHaveText('1/6')});
