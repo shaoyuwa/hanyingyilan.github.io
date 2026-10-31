@@ -1,0 +1,82 @@
+# Crawlability and AI-search checks — 2026-11-01
+
+The review stack serves the same complete, source-attributed HTML to people and
+non-JavaScript HTTP clients. It does not add hidden text, alternate crawler pages,
+`llms.txt`, speculative schema or a promise of AI citations. Existing permissive
+`robots.txt` is unchanged. Search access and model-training preferences are
+separate owner choices; this task does not silently choose a new policy.
+
+## Official guidance reviewed
+
+| System | What the control means | Application here |
+| --- | --- | --- |
+| Google Search / AI features | Normal search eligibility and snippets apply; no special AI markup required, and indexing is not guaranteed | Keep substantive HTML, source links, canonical and preview noindex; verify actual indexing with owner access |
+| Bing / Copilot | Crawl access and indexing controls differ from controls for use in generated answers | Retain current policy; owner should review training and grounding choices separately |
+| OpenAI | OAI-SearchBot is for search, GPTBot for possible model-training use; their controls are independent. ChatGPT-User is user-triggered and robots rules may not apply | Do not treat allowing search as a new training-policy decision; keep current robots pending an explicit owner choice |
+
+Sources: [Google AI features](https://developers.google.com/search/docs/appearance/ai-features),
+[Bing webmaster guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a),
+[OpenAI crawler documentation](https://developers.openai.com/api/docs/bots).
+
+Microsoft's [October 30, 2026 announcement](https://www.bing.com/webmasters/help/new-ai-preferences-2t1cc16d)
+describes future separate AI Training/AI Grounding preferences, with honoring
+beginning February 1, 2027 as content is recrawled. These are not a live change to
+this site's policy on November 1. Existing [NoArchive/NoCache guidance](https://blogs.bing.com/webmaster/2023/9/Announcing-new-options-for-webmasters-to-control-usage-of-their-content-in-Bing-Chat/)
+and its migration timetable need owner review if this site survives the campaign.
+The full help page was read in a JavaScript-enabled browser. AITraining can be
+expressed in robots.txt with page overrides; AIGrounding is page-level. Neither
+overrides a crawl block. These future controls are recorded for owner review; no
+new directive is installed.
+
+## Reproducible checks
+
+With the reviewed tree served locally, run:
+
+```sh
+node scripts/check-http.mjs http://127.0.0.1:8123/
+```
+
+This client does not run JavaScript. It checks root, index and query variants for
+all 23 unique policy articles, every title/detail/original attribution, citation
+anchors, source links/dates/status, publisher, canonical and preview noindex.
+Negative Node tests remove a policy or citation and require failure. These checks
+establish response-HTML coverage, not the truth of unverified sources or the
+identity of an actual crawler.
+
+Run the same command against production only after this stack is approved and
+actually deployed upstream. It will intentionally fail if production still serves
+older content. Record URL, timestamp, response status, deployment commit and
+which assertions passed; keep local and deployed results separate. Also verify
+Jekyll's actual output against `content/publishing.json` and fetch a source/doc path
+to ensure exclusion. Check sitemap/robots status and canonical on the real host.
+A Python repository server exposes source files and cannot prove those exclusions.
+
+## Owner and observation work still pending
+
+[SEARCH-CONSOLE.md](SEARCH-CONSOLE.md) records unavailable target-property access.
+Bing Webmaster Tools target-site access has not been established. An authorized
+owner should inspect root/index/query/preview crawl status, rendered HTML and chosen
+canonical in each service after deployment. Do not infer “not indexed” from lack
+of access, an empty web search, or a local test. No live indexing or AI-answer
+comparison was performed for this unmerged stack.
+
+Use a small neutral question set for manual before/after observations:
+
+- 「韓瑩提出的生育津貼及營養費是多少？請列出原文日期，區分提案與現行制度。」
+- 「這份政見頁的發布單位是誰？哪些資料來源仍待查證？」
+- 「重陽禮金試算依據哪一份提案？和市公所公告的日期及性質有何不同？」
+
+For each, record date/time, product/version, language/location settings, exact
+question, cited URLs, whether publication/review dates and proposal status were
+preserved, and errors/limitations. Use identical prompts/settings before and after
+an actual release. Human reviewers must check cited originals, not just answer
+fluency. Do not collect individual visitors' political preferences. A few answers
+are qualitative observations, not ranking measurements or causal evidence.
+
+## Local verification result
+
+On 2026-11-01 (Asia/Taipei), the HTTP client received 200 for all eight checked
+paths. Root, index and query responses each contained 23 policies and 11 sources;
+all three previews retained noindex, and robots/sitemap retained the production
+URL. Node 25.4.0 executed the client without a DOM or JavaScript page execution.
+The negative fixtures rejected missing policy content, citations and sources.
