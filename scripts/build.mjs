@@ -23,10 +23,14 @@ export function validateHTML(html, outputs={}) {
  }
  for(const value of attrs('href'))if(value.startsWith('#')&&!ids.includes(value.slice(1))&&!/^#six-(intl|traffic|city|tour|resil|welfare)$/.test(value))throw Error(`missing fragment: ${value}`);
 }
+const escape=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function renderOverview(data){
+ return '<section id="policy-overview"><div class="wrap"><h2>完整政見與出處</h2>'+Object.entries(data.PIL).filter(([k])=>k!=='gov').map(([key,pillar])=>`<section id="six-${key}"><h3>${escape(pillar.n)}</h3><div class="cards">${data.PL.filter(p=>p.p===key).map(p=>`<article class="pcard" id="policy-${p.id}"><div class="bd"><h4>${escape(p.t)}</h4><ul>${p.body.map(b=>`<li>${escape(b)}</li>`).join('')}</ul><p class="meta">出處：${escape(p.ref)}</p>${p.go?`<a href="#${p.go}">查看相關互動</a>`:''}</div></article>`).join('')}</div></section>`).join('')+'</div></section>';
+}
 export function generate(){
  const data=JSON.parse(readFileSync('content/policies.json','utf8'));validate(data);
- const html=readFileSync('src/index.template.html','utf8');
- const outputs={'index.html':html,'assets/site.css':readFileSync('src/site.css','utf8'),'assets/js/app.js':readFileSync('src/app.js','utf8'),'assets/js/policies.js':'window.POLICY_DATA = '+JSON.stringify(data).replace(/</g,'\\u003c')+';\n'};
+ const html=readFileSync('src/index.template.html','utf8').replace('{{POLICY_OVERVIEW}}',renderOverview(data));
+ const outputs={'index.html':html,'assets/site.css':readFileSync('src/site.css','utf8'),'assets/js/app.js':readFileSync('src/app.js','utf8'),'assets/js/optional.js':readFileSync('src/optional.js','utf8'),'assets/js/policies.js':'window.POLICY_DATA = '+JSON.stringify(data).replace(/</g,'\\u003c')+';\n'};
  validateHTML(html,outputs);
  for(const file of ['preview-a.html','preview-b.html','preview-c.html'])validateHTML(readFileSync(file,'utf8'),outputs);
  return outputs;
