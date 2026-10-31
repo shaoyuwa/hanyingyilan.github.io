@@ -1,7 +1,20 @@
 /* tap the portrait to cycle through the photos (the first one keeps the wind-blown hair overlay) */
 (function () {
   const box = $('.pbox'), img = $('#portraitImg2'), hair = $('#hair'), btn = $('#swapPhoto'); if (!box || !img) return;
-  const LIST = [{src: 'portrait2.jpg', z: 1.22}, {src: 'p4.jpg', z: 1}, {src: 'p5.jpg', z: 1}, {src: 'p6.jpg', z: 1}, {src: 'p7.jpg', z: 1}, {src: 'p8.jpg', z: 1}, {src: 'p9.jpg', z: 1}, {src: 'p10.jpg', z: 1}, {src: 'p11.jpg', z: 1}, {src: 'p12.jpg', z: 1}, {src: 'p13.jpg', z: 1}, {src: 'p14.jpg', z: 1}];
+  const LIST = [
+    {src: 'assets/images/portraits/han-ying-arms-crossed.jpg', z: 1.22},
+    {src: 'assets/images/portraits/han-ying-waving.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-temple-peace-sign.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-crouching-campaign-vest.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-orange-cap.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-windblown-closeup.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-hand-on-cheek.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-white-jacket.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-badminton-ready.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-badminton-smiling.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-badminton-lunge.jpg', z: 1},
+    {src: 'assets/images/portraits/han-ying-badminton-shuttlecock.jpg', z: 1}
+  ];
   let i = -1;
   const show = n => {
     i = n; const alt = i >= 0;
@@ -328,7 +341,7 @@ async function makeCard() {
   }
   g.fillStyle = INK; g.font = `900 56px ${F}`; inkText('韓瑩OK　宜蘭OK', 1296);
   // 右下角：去背的半身照，頭髮和肩膀探出黃色底板
-  const pc = new Image(); pc.src = 'portrait-cut.png';
+  const pc = new Image(); pc.src = 'assets/images/portraits/han-ying-windblown-cutout.png';
   try { await pc.decode(); } catch (e) {}
   if (pc.naturalWidth) {
     g.save(); g.translate(868, 1262); g.rotate(-0.07);

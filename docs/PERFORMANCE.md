@@ -68,6 +68,11 @@ serially on an idle machine for a stronger timing comparison. Do not run a
 benchmark against an unrelated process on port 8123. Output paths are explicit;
 reports contain only synthetic local observations, no user analytics.
 
+The later media-layout cleanup moved portraits into `assets/images/portraits/` and
+updated the current script's alternate-request filter. The reports above retain
+their measured paths. Use each recorded revision's script for this historical
+comparison; use the current script when measuring the reorganized site.
+
 The browser test first failed when eager requests occurred, then passed after
 removing prefetch and the hidden `src`. At this experiment stage, 21 Node and 20
 Chromium tests passed; the later integrated verification is recorded in

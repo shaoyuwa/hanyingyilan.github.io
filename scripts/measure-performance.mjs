@@ -19,7 +19,7 @@ try{
    new PerformanceObserver(list=>{for(const e of list.getEntries())window.lab.longTaskMs+=e.duration}).observe({type:'longtask',buffered:true});
   });
   await page.goto('http://127.0.0.1:8123/',{waitUntil:'load'});await page.waitForTimeout(8000);
-  const metric=Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map(m=>[m.name,m.value]));const startup={...await page.evaluate(()=>window.lab),bytes,taskMs:metric.TaskDuration*1000,scriptMs:metric.ScriptDuration*1000,alternateRequests:requests.filter(u=>/\/(portrait2|p\d+)\.jpg$/.test(u)).length,iframeAttempts:requests.filter(u=>u.includes('facebook.com/plugins/')).length};
+  const metric=Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map(m=>[m.name,m.value]));const startup={...await page.evaluate(()=>window.lab),bytes,taskMs:metric.TaskDuration*1000,scriptMs:metric.ScriptDuration*1000,alternateRequests:requests.filter(u=>/\/assets\/images\/portraits\/[^/]+\.jpg$/.test(u)&&!u.endsWith('/han-ying-windblown.jpg')).length,iframeAttempts:requests.filter(u=>u.includes('facebook.com/plugins/')).length};
   for(const iframe of await page.locator('.vcard iframe').all()){await iframe.scrollIntoViewIfNeeded();await page.waitForTimeout(150)}
   await page.waitForTimeout(1000);
   runs.push({run,reducedMotion,startup,iframeAttemptsAfterScroll:requests.filter(u=>u.includes('facebook.com/plugins/')).length});console.log(JSON.stringify(runs.at(-1)));await context.close();
