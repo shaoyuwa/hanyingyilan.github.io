@@ -101,6 +101,32 @@ the implementation history, so the aggregate PR into that branch contains the
 documentation changes; the fixed inclusive review range above remains the code
 review scope.
 
+## Media organization follow-up — 2026-11-01
+
+Review-scope correction — 2026-11-01: the aggregate review above assessed introduced
+runtime defects but missed media naming and repository organization. Root-level
+images named `p4.jpg` through `p14.jpg` and the abbreviated `v/pu.*` paths were
+maintainability findings even though they predated the review range. The subsequent
+media-layout cleanup moves these files into the
+[public media layout](ARCHITECTURE.md#public-media-layout), updates active references,
+and preserves historical reports. The earlier “no substantive introduced code
+defects” result is not an endorsement of the original asset organization.
+
+All 17 media files were moved without changing their bytes. Active templates,
+preview metadata, browser code, the publication manifest and performance tooling
+now reference the descriptive paths. The old root-level and `v/` media URLs are
+retired by this change; there are no compatibility aliases. Direct links to those
+assets need updating when this reaches production.
+
+Fresh validation passed: generated-output checks, 24 native tests, 21 Chromium
+tests (including loading and decoding all 12 alternate photos), and a Jekyll 3.10.0
+safe build with exactly the 28 manifest files. All 17 media responses from that
+local Jekyll output matched the originals byte-for-byte with correct MIME types;
+the eight-path HTTP checker passed and local video metadata loaded in Chromium.
+The desktop hero screenshot was inspected. The Jekyll installation was found in
+temporary tooling outside PATH; this resolves the preceding follow-up's local
+tool availability limitation, without establishing a hosted deployment.
+
 ## Remaining owner acceptance
 
 External acceptance remains pending: complete factual source verification,

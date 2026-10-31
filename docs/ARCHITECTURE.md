@@ -26,6 +26,19 @@ The generator also emits `robots.txt` and `sitemap.xml`. Images, local video and
 the three preview pages are maintained public files, not generated outputs.
 The manifest, rather than this map, is the exhaustive public-file list.
 
+### Public media layout
+
+| Directory | Responsibility |
+| --- | --- |
+| `assets/images/portraits/` | Hero, alternate photographs and the transparent portrait used by image export |
+| `assets/images/social/` | Social-preview artwork referenced by homepage and preview-page metadata |
+| `assets/videos/` | Local video and its matching `-poster.jpg` image |
+
+Media filenames describe their subject or use, such as `han-ying-orange-cap.jpg`
+and `courage-for-hometown.mp4`. Keep a video's poster with that video. Media is
+maintained directly in these directories; it is not copied from root-level files.
+See [Content](CONTENT.md#media-and-permissions) for replacement and provenance work.
+
 ## Readable content and enhancement
 
 All 23 policies, details and citations appear in initial HTML under unique

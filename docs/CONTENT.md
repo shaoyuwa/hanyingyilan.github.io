@@ -52,10 +52,21 @@ asset-permission record was present at the audit baseline. Public availability i
 not reuse permission; the ownership/provenance follow-up is
 [#16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16).
 
-The portrait `LIST` is in `src/optional.js`; canvas export uses `portrait-cut.png`;
-social metadata uses `og.png`. Local video is in `v/`; Facebook embeds and direct
-links are separate template markup. Replace each affected reference deliberately
-and classify new assets in `content/publishing.json`.
+Use the [public media layout](ARCHITECTURE.md#public-media-layout). Choose descriptive,
+lowercase, hyphen-separated filenames based on the visible subject or intended use;
+avoid unexplained abbreviations and numbered names such as `p4.jpg`.
+
+The portrait `LIST` and canvas image reference are in `src/optional.js`. Hero,
+social-preview, local-video and poster references are in `src/index.template.html`;
+the three maintained `preview-*.html` pages also reference the social image.
+Facebook embeds and direct links remain separate template markup. Update every
+affected reference, classify the new paths in `content/publishing.json`, and check
+the photo-loading test and performance script when changing portrait paths.
+
+Moving media changes its public URL. Update metadata and in-repository consumers
+together, and document any compatibility aliases or retired URLs for deployment.
+Preserve dated reports' original paths so their recorded measurements remain
+interpretable.
 
 Undated video view counts were removed. Any future snapshot needs a measurement
 date and deliberate maintenance. Do not infer captions or transcripts from titles.
