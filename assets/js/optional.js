@@ -272,7 +272,9 @@ function wrapText(g, text, maxW) {
   for (const ch of text) { const t = line + ch; if (g.measureText(t).width > maxW && line) { out.push(line); line = ch; } else line = t; }
   if (line) out.push(line); return out;
 }
+let cardGeneration = 0;
 async function makeCard() {
+  const generation = ++cardGeneration;
   const opener = document.activeElement;
   const picks = matches();
   if (!sel.size || !picks.length) { toast('先選一個身分，再做圖卡'); return; }
@@ -339,10 +341,10 @@ async function makeCard() {
   }
   if (stamps.size === 6) { g.save(); g.translate(960, 70); g.rotate(-0.2); g.fillStyle = '#ffb400'; rr(-110, -34, 220, 68, 16); g.fill(); g.lineWidth = 4; g.strokeStyle = INK; g.stroke(); g.fillStyle = INK; g.font = `900 30px ${F}`; g.textAlign = 'center'; g.fillText('六新集章完成', 0, 10); g.restore(); }
   const url = cv.toDataURL('image/png');
-  cv.toBlob(blob => showCard(url, blob, opener), 'image/png');
+  cv.toBlob(blob => { if (generation === cardGeneration) showCard(url, blob, opener); }, 'image/png');
 }
 function showCard(url, blob, opener) {
-  let m = $('#cardModal'); if (m) m.close();
+  let m = $('#cardModal'); if (m) { m.close(); m.remove(); }
   m = document.createElement('dialog'); m.id = 'cardModal'; m.className = 'cardmodal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', '我的專屬政見卡');
   const touch = matchMedia('(pointer:coarse)').matches;
   const hint = touch ? '👇 長按下面的圖片，選「儲存圖片」<small>iPhone 選「加入照片」<br>Android 選「下載圖片」</small>' : '👇 在圖片上按右鍵，選「另存圖片」<small>也可以按下面的「下載」</small>';
@@ -350,7 +352,7 @@ function showCard(url, blob, opener) {
     <div class="row2"><button class="btn line" id="cShare">分享圖片</button><a class="btn" id="cDl" download="韓瑩政見卡.png" href="${url}">下載</a><button class="btn" id="cClose">關閉</button></div><p id="cardStatus" role="status"></p></div>`;
   document.body.append(m);
   const close = () => m.close();
-  m.addEventListener('close', () => { m.remove(); if (opener?.isConnected) opener.focus(); }, {once:true});
+  m.addEventListener('close', () => { m.remove(); if (!$('#cardModal') && opener?.isConnected) opener.focus(); }, {once:true});
   m.addEventListener('keydown', e => {
     if (e.key !== 'Tab') return;
     const first = m.querySelector('#cShare'), last = m.querySelector('#cClose');
@@ -358,17 +360,17 @@ function showCard(url, blob, opener) {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
   m.addEventListener('click', e => { if (e.target === m) close(); });
-  $('#cClose').onclick = close;
-  $('#cShare').onclick = async () => {
+  m.querySelector('#cClose').onclick = close;
+  m.querySelector('#cShare').onclick = async () => {
     try {
       const file = new File([blob], '韓瑩政見卡.png', {type: 'image/png'});
       if (navigator.canShare && navigator.canShare({files: [file]})) { await navigator.share({files: [file], title: '韓瑩政見卡', text: '韓瑩政見一覽 ' + SITE_URL}); return; }
     } catch (e) { if (e && e.name === 'AbortError') return; }
-    $('#cardStatus').textContent = '這個瀏覽器不能直接分享圖片，請下載或長按圖片儲存';
+    m.querySelector('#cardStatus').textContent = '這個瀏覽器不能直接分享圖片，請下載或長按圖片儲存';
     toast('這個瀏覽器不能直接分享圖片，請長按圖片儲存');
   };
   m.showModal();
-  $('#cShare').focus();
+  m.querySelector('#cShare').focus();
 }
 $('#mkcard').onclick = makeCard;
 
