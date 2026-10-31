@@ -32,7 +32,8 @@ Canvas failure cannot prevent the core overview or category/filter controls.
 Unavailable Canvas actions show a visible status message. Initial category
 fragments replay the stamp after optional initialization.
 Optional features are not comprehensively fault-isolated from one another; that
-and existing modal/game accessibility work remain in #13.
+remains a limitation. The image dialog now uses native modal inertness, focus
+containment and opener restoration; game input is scoped to its native button.
 
 Filter/category/calculator state stays in memory. Large text uses localStorage
 with exceptions handled. Category shares retain `#six-*`; no political preference
