@@ -2,8 +2,8 @@
 
 ## Local work
 
-Inspect `git status` first and use a review branch for changes. The historical baseline had no tooling. Current development uses Node.js 22+ and
-pinned development-only Playwright. Run `npm ci`, `npm run build`, `npm run check`,
+Inspect `git status` first and use a review branch for changes. The historical baseline had no tooling. Current development uses Node.js 22.22+ (22.x) or 24.8+ and
+pinned development-only Playwright and HTML-validate. Run `npm ci`, `npm run build`, `npm run check`,
 `npm test`, then `npx playwright install chromium` and `npm run test:e2e`. CI runs
 freshness, native tests, and Chromium smoke checks. Generated public files must be
 committed with source changes.
@@ -27,7 +27,9 @@ git diff --stat
 ```
 
 `npm test` includes syntax checks for public scripts and negative checks proving
-that duplicate IDs, missing resources/fragments and stale output are rejected.
+that malformed nesting, duplicate IDs, unknown source classes, missing
+resources/fragments and stale output are rejected. Freshness mutation tests use
+temporary fixtures, and generation is checked twice for deterministic results.
 `npm run test:e2e` starts a Python HTTP server automatically.
 
 For documentation-only changes, verify relative links, filenames, commands and
@@ -90,8 +92,9 @@ writes `_config.yml` exclusions for legacy Pages Jekyll. Add intended public ass
 to the manifest; unknown tracked files fail checks. Contributor/source/tooling
 paths are excluded from publishing, not merely omitted from the sitemap. A local
 Python server still exposes repository files; it does not model Jekyll exclusions.
-Jekyll is unavailable in the validation environment, so inspect the actual Pages
-build output and public URLs after deployment before marking publishing accepted.
+Local Jekyll 3.10.0 output was checked against the manifest during fork integration;
+see P1-IMPLEMENTATION.md. Inspect actual Pages output and public URLs after
+deployment before marking publishing accepted.
 
 Maintainer roles, media provenance and post-election ownership need to be assigned
 by the repository maintainers; see [#16](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/16).
