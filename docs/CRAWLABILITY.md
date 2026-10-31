@@ -10,6 +10,8 @@ separate owner choices; this task does not silently choose a new policy.
 
 This is a dated guidance record. Recheck the linked provider documentation before
 changing crawler policy; no provider controls were revalidated by the docs cleanup.
+The table records the policy at inspection. Preview experiments were subsequently
+retired; [Architecture](ARCHITECTURE.md#publishing-and-crawlers) owns current publication behavior.
 
 | System | What the control means | Application here |
 | --- | --- | --- |
@@ -41,7 +43,8 @@ node scripts/check-http.mjs http://127.0.0.1:8000/
 
 This client does not run JavaScript. It checks root, index and query variants for
 all 23 unique policy articles, every title/detail/original attribution, citation
-anchors, source links/dates/status, publisher, canonical and preview noindex.
+anchors, source links/dates/status, publisher and canonical. It also checks the
+robots and sitemap responses. Retired preview pages are no longer expected to return 200.
 Negative Node tests remove a policy or citation and require failure. These checks
 establish response-HTML coverage, not the truth of unverified sources or the
 identity of an actual crawler.
@@ -75,8 +78,6 @@ an actual release. Human reviewers must check cited originals, not just answer
 fluency. Do not collect individual visitors' political preferences. A few answers
 are qualitative observations, not ranking measurements or causal evidence.
 
-## Local verification result
-
-The [integrated review](P1-NEXT-STACK.md#recorded-verification) records the dated
-HTTP results and environment alongside the matching native/browser checks.
-That local evidence does not establish actual crawler identity or indexing.
+Record HTTP results and environment with the matching native/browser checks in
+the PR or final work report. Local evidence does not establish actual crawler
+identity or indexing.

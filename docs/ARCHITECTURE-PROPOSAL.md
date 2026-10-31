@@ -3,7 +3,7 @@
 狀態：原提案已在 fork 實作整合；這是歷史決策紀錄，不是待執行規格。
 原始問題與驗收條件見 [#20](https://github.com/Hanyingyilan/hanyingyilan.github.io/issues/20)。
 目前來源、模組及發布設計以 [ARCHITECTURE](ARCHITECTURE.md) 為準；
-驗證程序見 [CONTRIBUTING](CONTRIBUTING.md)，整合證據見 [P1-NEXT-STACK](P1-NEXT-STACK.md)。
+驗證程序見 [CONTRIBUTING](CONTRIBUTING.md)，整合證據保留在 PR 與 Git 歷史。
 
 ## 背景與選擇
 
@@ -40,7 +40,7 @@
 
 ## 歷史實作與驗收
 
-五項實作順序、commit 與當時驗證見 [原始實作紀錄](P1-IMPLEMENTATION.md)；
-[原始計畫摘要](superpowers/plans/2026-11-01-p1-stack.md) 保留各階段目的。
-原提案及完整任務清單可由 Git 歷史中的 `d0395a8` 取得。
+五項實作順序見 [ROADMAP](ROADMAP.md)，commit 與當時驗證保留在 PR 與 Git 歷史。
+已完成的執行計畫及工作紀錄不再保留為維護文件；原提案及完整任務清單仍可由
+Git 歷史中的 `d0395a8` 取得。
 後續 fork 合併不代表上游部署、事實查核或搜尋索引已驗收。

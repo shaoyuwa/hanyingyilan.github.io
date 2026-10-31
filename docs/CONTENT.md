@@ -57,8 +57,7 @@ lowercase, hyphen-separated filenames based on the visible subject or intended u
 avoid unexplained abbreviations and numbered names such as `p4.jpg`.
 
 The portrait `LIST` and canvas image reference are in `src/optional.js`. Hero,
-social-preview, local-video and poster references are in `src/index.template.html`;
-the three maintained `preview-*.html` pages also reference the social image.
+social-preview, local-video and poster references are in `src/index.template.html`.
 Facebook embeds and direct links remain separate template markup. Update every
 affected reference, classify the new paths in `content/publishing.json`, and check
 the photo-loading test and performance script when changing portrait paths.
@@ -80,8 +79,7 @@ load; long-open-tab and post-election behavior remain lifecycle work under #16.
 
 `content/site.json` owns the clean production root. Preserve existing `#six-*`,
 `#clean` and `#money` links when editing navigation. Social-image cache versions
-are independent of the canonical URL. Preview experiments retain `noindex` until
-an explicit retirement decision. Keep source publication, factual review and
+are independent of the canonical URL. Keep source publication, factual review and
 release dates distinct.
 
 ## Historical source inspections — 2026-11-01

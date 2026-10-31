@@ -75,7 +75,7 @@ comparison; use the current script when measuring the reorganized site.
 
 The browser test first failed when eager requests occurred, then passed after
 removing prefetch and the hidden `src`. At this experiment stage, 21 Node and 20
-Chromium tests passed; the later integrated verification is recorded in
-[P1-NEXT-STACK](P1-NEXT-STACK.md#recorded-verification). Inspect mobile/desktop
+Chromium tests passed. Later verification belongs to its corresponding PR and
+revision. Inspect mobile/desktop
 screenshots when repeating. Field targets remain p75 LCP ≤2.5s, INP ≤200ms, CLS ≤0.1, pending enough
 actual field data; local observations cannot establish them.

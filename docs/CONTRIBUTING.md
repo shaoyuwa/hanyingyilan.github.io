@@ -40,10 +40,37 @@ and service-specific operations (their respective guides). New topics need an
 explicit owner in the map only when none of the existing guides covers them.
 Review all affected links when moving or renaming a section.
 
-Keep dated audits, experiments and implementation records scoped to their
-revision. Append a dated correction or follow-up with evidence instead of replacing
-an old result with today's result. Link historical plans to the current guide so
-their obsolete commands or completed tasks cannot be mistaken for live work.
+Keep retained audits, architecture decisions and reproducible measurements scoped
+to their revision. Append a dated correction with evidence instead of replacing an
+old result with today's result. Completed execution plans and review-session logs
+belong in PR/Git history, not the maintained documentation set.
+
+## Temporary files and repository hygiene
+
+Never commit or merge disposable preview pages, prototypes, agent execution plans,
+review notes, scratch scripts, logs, screenshots, test reports or local build
+directories. Use the operating system's temporary directory or ignored `.scratch/`
+for working files. Agent tools and skills that default to `docs/` for task plans
+must use that scratch storage instead. Do not force-add ignored artifacts.
+
+Delete completed experiments and your own generated artifacts after inspecting
+their results. Remove obsolete references from the build, tests, publication
+manifest and maintained guides in the same change. Use Git history to recover
+retired tracked experiments; do not create an archive folder or replacement
+cleanup/review log. Preserve unrelated work and reusable development dependencies.
+
+Track production sources/assets, required generated public output, permanent
+regression tests, maintained guides, architecture decisions and reproducible
+evidence that supports a documented decision. A dated filename alone does not make
+an artifact worth retaining. Each retained document needs a clear responsibility
+in the README map; ordinary check results and task progress go in the PR or final
+work report.
+
+Before handing off or committing, inspect `git status`, the full diff and staged
+file list for accidental artifacts. Keep non-entry files in the directory that
+owns them, use descriptive names, and apply the
+[validation rules](#validation-by-change-type). Ignoring a file does not remove it
+from Git if it was already tracked; remove obsolete tracked files explicitly.
 
 ## Validation by change type
 
@@ -70,7 +97,9 @@ Freshness checks reject stale output. Native tests cover data/source validation,
 HTML nesting, script syntax, unique IDs, resources/fragments, URLs, publishing,
 numerical boundaries and HTTP-content assertions. Negative tests use temporary
 fixtures, including stale generated files; repeated generation checks determinism.
-The browser suite starts its own Python server. CI runs freshness, native tests
+The browser suite uses [its configuration](../tests/playwright.config.mjs) to start
+a Python server at the repository root. Use `npm run test:e2e` so the config path
+is applied. CI runs freshness, native tests
 and Chromium checks through [the workflow](../.github/workflows/check.yml).
 
 ## Browser smoke checks
@@ -95,8 +124,8 @@ with them blocked as well as live media where available.
 Calculator totals are regression expectations for the proposal model, not benefit
 advice. Recalculate them when reviewed source assumptions change. Chromium tests
 include CSS zoom; this does not replace native browser zoom, actual screen readers
-or other-engine checks. Historical coverage and unperformed checks belong in the
-[review record](P1-NEXT-STACK.md), not an assertion that every release passed.
+or other-engine checks. Record the tested revision, coverage and unperformed checks
+in the PR or final work report; earlier results do not establish that a new release passed.
 
 ## Release and rollback
 
@@ -112,8 +141,8 @@ or other-engine checks. Historical coverage and unperformed checks belong in the
    verify Jekyll exclusions. Record the Jekyll/Ruby versions and any unavailable check.
 4. Check the actual Pages build/deployment, then live status codes, assets, fragment
    links, metadata and crawler output. Fetch an excluded source/doc path and an
-   unknown path as well as `/`, `/index.html`, query variants and previews. Preview
-   `noindex` must remain crawlable. Record release time separately from factual review.
+   unknown path as well as `/`, `/index.html` and query variants. Confirm retired
+   preview URLs return 404. Record release time separately from factual review.
 5. Have the authorized owner complete [Search Console](SEARCH-CONSOLE.md) and any
    relevant [crawler-service observations](CRAWLABILITY.md#owner-and-observation-work-still-pending).
    Source checks do not establish Google-selected canonical or indexing.

@@ -34,12 +34,12 @@ settings. Owner approval and the real public verification artifact remain pendin
 ## Baseline and follow-up record
 
 Use the [URL Inspection tool](https://support.google.com/webmasters/answer/9012289)
-on `/`, `/index.html`, `/?v=6`, and each preview. Inspect the clean root for hash
+on `/`, `/index.html` and `/?v=6`. Inspect the clean root for hash
 links because fragments are not separate server resources. Record the inspected
 URL, date, last crawl, indexing status, user-declared and Google-selected canonical,
 crawl errors and rendered HTML coverage. Confirm all 23 policies, sources, dates,
-and status text after upstream deployment. Preview pages must retain `noindex` and
-remain crawlable. The root canonical is a declaration, not Google's selection.
+and status text after upstream deployment. Confirm retired preview URLs return 404
+after the cleanup is deployed. The root canonical is a declaration, not Google's selection.
 
 Submit the actual production `/sitemap.xml` and record its processing status after
 checking the response. Follow the [sitemaps report](https://support.google.com/webmasters/answer/7451001).
@@ -59,5 +59,5 @@ changes. See [Performance report guidance](https://support.google.com/webmasters
 | Post-deployment comparison | No upstream deployment in this task | Record release date and repeat observation |
 
 This handoff records no verification success, sitemap submission, indexing, clicks,
-impressions or ranking improvement. Fork integration evidence is maintained in
-[the review record](P1-NEXT-STACK.md), separately from these owner observations.
+impressions or ranking improvement. Fork integration evidence belongs in PR and
+Git history, separately from these owner observations.

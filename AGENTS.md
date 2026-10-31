@@ -15,6 +15,10 @@ follow each topic's maintained guide instead of duplicating its rules here.
 - Use [CONTENT](docs/CONTENT.md) for factual changes, including all affected
   policy fields, rates, copy and references. Keep public copy in Traditional Chinese.
 - Find priorities in [ROADMAP](docs/ROADMAP.md). Keep the change scoped to the task.
+- Keep temporary experiments, agent plans, review notes, logs and screenshots out
+  of commits and merges. Use ignored scratch storage and follow the
+  [temporary-file policy](docs/CONTRIBUTING.md#temporary-files-and-repository-hygiene),
+  including when an agent skill suggests writing execution plans under `docs/`.
 
 ## Verification and reporting
 
@@ -27,4 +31,6 @@ follow each topic's maintained guide instead of duplicating its rules here.
 - Never commit credentials, private analytics or personal user data. Follow the
   [data-collection principle](docs/PRINCIPLES.md#7-minimize-data-collection-and-third-party-cost).
 - Update the relevant maintained guide with implementation changes. Preserve dated
-  evidence and link to newer results rather than rewriting history as current fact.
+  evidence that supports a durable decision; keep completed task/review logs in
+  PR history rather than adding repository documents. Inspect staged files for
+  temporary artifacts before every commit or merge.

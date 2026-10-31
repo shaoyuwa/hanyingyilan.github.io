@@ -7,8 +7,10 @@ assessment of political claims, campaign effectiveness, or search rankings.
 
 Historical evidence only: statements below describe the audited baseline, not the
 current source. Findings and measurements retain their original date. Follow
-[ROADMAP](ROADMAP.md) for the issue inventory and [the integrated review](P1-NEXT-STACK.md)
-for subsequent work; do not use this audit as a current setup or status guide.
+[ROADMAP](ROADMAP.md) for the issue inventory and PR/Git history for subsequent
+work; do not use this audit as a current setup or status guide. The preview test
+pages recorded below have since been retired; current publication behavior is in
+[Architecture](ARCHITECTURE.md#publishing-and-crawlers).
 
 ## Main finding
 
