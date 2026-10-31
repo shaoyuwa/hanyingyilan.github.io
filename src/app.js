@@ -710,4 +710,3 @@ openFromHash(); addEventListener('hashchange', openFromHash);
   });
   ['wheel', 'touchmove', 'keydown'].forEach(ev => addEventListener(ev, stop, { passive: true }));
 })();
-
