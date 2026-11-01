@@ -40,28 +40,14 @@ const BALLOT_NO = 3;
   }
 })();
 
-/* hero letters: 市長 in white with a dark outline, everything else dark ink */
+/* Decorative letters are present in initial HTML to avoid moving the hero. */
 (function(){
-  const rot = [-4,3,-2,4,3,-4,2,-3];
   const pal = ['intl','city','tour','resil','welfare'];
-  const rows = [
-    [['新','intl'],['好','welfare'],['市','city',1],['長','tour',1]],
-    [['改','resil'],['變','welfare'],['宜','intl'],['蘭','city']]
-  ];
-  const h = $('#heroLetters');
-  rows.forEach((line, li) => {
-    const row = document.createElement('span'); row.className = 'row';
-    line.forEach(([ch, k, white], i) => {
-      const b = document.createElement('button');
-      b.className = 'ch' + (white ? ' w' : ''); b.textContent = ch; b.setAttribute('aria-hidden', 'true'); b.tabIndex = -1;
-      b.style.cssText = `--c:var(--c-${k});--r:${rot[li*4+i]}deg`;
-      b.onclick = () => {
-        b.classList.add('hop'); setTimeout(() => b.classList.remove('hop'), 350);
-        b.style.setProperty('--c', `var(--c-${pal[Math.floor(Math.random() * pal.length)]})`);
-      };
-      row.append(b);
-    });
-    h.append(row);
+  document.querySelectorAll('#heroLetters .ch').forEach(b => {
+    b.onclick = () => {
+      b.classList.add('hop'); setTimeout(() => b.classList.remove('hop'), 350);
+      b.style.setProperty('--c', `var(--c-${pal[Math.floor(Math.random() * pal.length)]})`);
+    };
   });
 })();
 

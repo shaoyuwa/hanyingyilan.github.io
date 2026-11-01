@@ -19,3 +19,17 @@ test('alternate photos load only when selected and every photo decodes',async({p
  await page.locator('#swapPhoto').click();await expect(photo).toBeHidden();
  await expect(page.locator('video')).toHaveAttribute('preload','none');await expect(page.locator('.vcard.fb .vlink')).toHaveCount(11);
 });
+
+test('optional decoration does not move the hero after initial render',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.route(/^https:\/\//,r=>r.abort());
+ let release;const gate=new Promise(resolve=>{release=resolve});
+ await page.route('**/assets/js/optional.js',async r=>{await gate;await r.continue()});
+ const navigation=page.goto('/');
+ await expect(page.locator('.lead')).toBeVisible();
+ const before=await page.locator('.lead').boundingBox();
+ release();await navigation;
+ await expect(page.locator('#heroLetters .ch')).toHaveCount(8);
+ const after=await page.locator('.lead').boundingBox();
+ expect(Math.abs(after.y-before.y)).toBeLessThan(1);
+});

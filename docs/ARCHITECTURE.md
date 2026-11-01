@@ -14,6 +14,7 @@ outputs below. [CONTRIBUTING](CONTRIBUTING.md#local-work) owns tool versions and
 | --- | --- |
 | `content/policies.json` | `PIL` category metadata, `WHO` filter controls, `PL` policy records → overview HTML and `assets/js/policies.js` |
 | `content/sources.json`, `src/sources.mjs` | Source registry validation and shared citation rendering → HTML registry and `POLICY_CITATIONS` |
+| `content/analytics.json`, `src/analytics.mjs` | Disabled-by-default, production-origin-only manual analytics loader → optional inline script |
 | `content/site.json` | Production root → canonical, Open Graph, sharing configuration and crawler URLs |
 | `content/publishing.json` | Explicit public-file inventory and excluded contributor paths → `_config.yml` |
 | `src/index.template.html` | Page markup and build tokens → `index.html` |
@@ -88,9 +89,16 @@ owns numerical regression checks.
 
 ## State and external resources
 
-Filter/category/calculator state stays in memory. Large text uses localStorage
-with exceptions handled. No analytics integration is installed; the
-[analytics decision](ANALYTICS.md) records pending owner choices.
+Filter, category and cleaning-step buttons are initialized once; selection updates `aria-pressed`
+in place so keyboard focus remains on the operating control while result cards
+are rebuilt. Keyboard category activation also keeps the button in view. Narrow
+card grids shrink to their container, including large-text mode. The scrollable cleaning illustration has a keyboard focus target.
+Decorative hero letters are initial HTML; optional code attaches their animation
+handlers without changing layout. Filter/category/calculator state stays in memory. Large text uses localStorage
+with exceptions handled. Analytics is disabled in `content/analytics.json`; disabled or absent configuration
+emits no loader. The independent optional loader only runs on the configured
+production origin. [Analytics](ANALYTICS.md) owns activation gates and remaining
+privacy/provider checks.
 
 Fonts and Facebook players are external. Local video has native controls, a poster
 and direct player fallback links. Alternate photos load on selection; the
@@ -103,7 +111,9 @@ The countdown updates on load; election-specific maintenance is in
 The build classifies every tracked file as public, excluded or the generated
 `_config.yml`, rejecting unknown paths. Legacy Jekyll excludes contributor sources,
 docs, tooling and test outputs using that generated configuration. No `.nojekyll`
-or Pages setting change is required. Local Python serving does not apply exclusions.
+or Pages setting change is required. Repository-root Python serving does not apply exclusions. CI builds with the
+official Pages Jekyll action and verifies the exact `_site` file set plus HTTP
+responses; it does not deploy.
 
 Robots permits crawling and the sitemap lists only the clean homepage. The old
 `preview-a.html`, `preview-b.html` and `preview-c.html` LINE experiments are retired

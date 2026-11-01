@@ -100,7 +100,8 @@ fixtures, including stale generated files; repeated generation checks determinis
 The browser suite uses [its configuration](../tests/playwright.config.mjs) to start
 a Python server at the repository root. Use `npm run test:e2e` so the config path
 is applied. CI runs freshness, native tests
-and Chromium checks through [the workflow](../.github/workflows/check.yml).
+and Chromium checks, then builds with `actions/jekyll-build-pages@v1` and checks the
+actual `_site` inventory and HTTP responses through [the workflow](../.github/workflows/check.yml).
 
 ## Browser smoke checks
 
@@ -136,8 +137,12 @@ in the PR or final work report; earlier results do not establish that a new rele
    source is `main:/`; merging upstream there may publish. Fork merge status is not
    deployment evidence. Do not change Pages settings incidentally.
 3. For publishing changes, compare a Pages-compatible Jekyll build's `_site` file
-   set with `content/publishing.json`. Check excluded source/docs and all public
-   assets. The manifest must classify new tracked files; Python serving cannot
+   set with `content/publishing.json` using
+   `node scripts/check-published.mjs _site`. Serve only `_site` and run
+   `node scripts/check-http.mjs http://127.0.0.1:8124/ --published`. This rejects
+   missing/extra artifacts and verifies public assets plus excluded/retired/unknown
+   paths. CI runs the official Pages Jekyll action for these checks without
+   deployment. The manifest must classify new tracked files; repository-root serving cannot
    verify Jekyll exclusions. Record the Jekyll/Ruby versions and any unavailable check.
 4. Check the actual Pages build/deployment, then live status codes, assets, fragment
    links, metadata and crawler output. Fetch an excluded source/doc path and an

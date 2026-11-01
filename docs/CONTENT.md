@@ -15,7 +15,11 @@ identifies source files; [CONTRIBUTING](CONTRIBUTING.md) owns build and validati
    Record publication and actual source-review dates separately. An inaccessible
    source is not proof of link rot; retain its attribution and access limitation.
 3. Update the policy's `sourceRefs`, `status`, `verification` and nullable `reviewed`
-   field together. `reviewed` means complete policy review, not partial source access.
+   field together. Source and policy `verification` must be `reviewed`, `partial`
+   or `unverified`. Dates must be real calendar dates (`YYYY-MM-DD`) or null;
+   `reviewed` verification requires a non-null review date; partially/unverified
+   policies must keep their complete-review date null. `reviewed` means complete
+   policy review, not partial source access.
    Preserve proposal/current-program distinctions and eligibility qualifications.
 4. Search related copy before editing: other policy records, `STOPS` in `src/app.js`,
    calculator rates/labels, metadata and video descriptions can repeat the same fact.
@@ -28,8 +32,8 @@ identifies source files; [CONTRIBUTING](CONTRIBUTING.md) owns build and validati
 
 For corrections, request a policy ID, original URL/date and the specific claim.
 Review the original and update policy/source fields with a dated commit. The public
-page links the fork's issue tracker; personal benefit applications do not belong
-there. Check sources again for substantive updates and retirement.
+page links the upstream public issue tracker; personal benefit applications do not
+belong there. Check sources again for substantive updates and retirement.
 
 ## Calculator and numerical assumptions
 

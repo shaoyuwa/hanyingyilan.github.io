@@ -49,9 +49,14 @@ function card(x, opts = {}) {
 /* ---------- personas ---------- */
 const sel = new Set(['parent']);
 function drawPick() {
-  const box = $('#pick'); box.innerHTML = '';
+  const box = $('#pick');
+  if (box.children.length) {
+    for (const b of box.children) b.setAttribute('aria-pressed', sel.has(b.dataset.persona));
+    return;
+  }
   Object.entries(WHO).forEach(([k, w]) => {
     const b = document.createElement('button');
+    b.dataset.persona = k;
     b.className = 'who'; b.style.cssText = `--c:var(--c-${w.c});--on:var(--on-${w.c})`;
     b.setAttribute('aria-pressed', sel.has(k));
     b.innerHTML = `${w.n}<small>${w.d}</small>`;
@@ -81,15 +86,19 @@ $('#copy').onclick = async () => {
 /* ---------- pillars ---------- */
 let curP = 'intl';
 function drawTiles() {
-  const t = $('#tiles'); t.innerHTML = '';
+  const t = $('#tiles');
+  if (t.children.length) {
+    for (const b of t.children) b.setAttribute('aria-pressed', b.dataset.category === curP);
+    return;
+  }
   Object.keys(PIL).filter(k => k !== 'gov').forEach(k => {
-    const b = document.createElement('button'); b.className = 'tile'; b.style.cssText = pv(k);
+    const b = document.createElement('button'); b.dataset.category = k; b.className = 'tile'; b.style.cssText = pv(k);
     b.setAttribute('aria-pressed', k === curP);
     b.innerHTML = `<span class="big" aria-hidden="true">${PIL[k].g}</span><b>${PIL[k].n}</b><span>${PIL[k].s}</span>`;
-    b.onclick = () => {
+    b.onclick = event => {
       curP = k; drawTiles(); drawPanel(); window.policyStamp?.(k);
       const pn = $('#panel'), top = pn.getBoundingClientRect().top;
-      if (top > innerHeight * 0.45 || top < 0) pn.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+      if (event.detail > 0 && (top > innerHeight * 0.45 || top < 0)) pn.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
     };
     t.append(b);
   });
@@ -119,9 +128,13 @@ const STOPS = [
 ];
 let stopI = 0, after = false;
 function drawSteps() {
-  const s = $('#steps'); s.innerHTML = '';
+  const s = $('#steps');
+  if (s.children.length) {
+    for (const b of s.children) b.setAttribute('aria-pressed', Number(b.dataset.stop) === stopI);
+    return;
+  }
   STOPS.forEach((st, i) => {
-    const b = document.createElement('button'); b.className = 'step'; b.setAttribute('aria-pressed', i === stopI);
+    const b = document.createElement('button'); b.dataset.stop = i; b.className = 'step'; b.setAttribute('aria-pressed', i === stopI);
     b.innerHTML = `<i>${i + 1}</i>${st.name}`;
     b.onclick = () => { stopI = i; moveTruck(); drawSteps(); };
     s.append(b);
