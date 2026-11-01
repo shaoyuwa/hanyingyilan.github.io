@@ -11,3 +11,10 @@ test('network summaries separate origins, failures and unfinished requests',()=>
  assert.deepEqual(summary.bytesByOrigin,{'https://a.test':42,'https://b.test':3});
  assert.equal(summary.bytes,45);assert.equal(summary.failures.length,1);assert.equal(summary.pending.length,1);
 });
+
+test('network phase summaries do not change when a pending request finishes later',()=>{
+ const request={url:'https://a.test/slow',bytes:0,finished:false};
+ const startup=summarizeRequests([request]);
+ request.bytes=100;request.finished=true;request.completedPhase='scroll';
+ assert.equal(startup.pending[0].finished,false);assert.equal(startup.pending[0].bytes,0);
+});

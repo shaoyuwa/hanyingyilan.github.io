@@ -19,6 +19,7 @@ export function parseOptions(args){
  return options;
 }
 export function summarizeRequests(requests){
+ requests=structuredClone(requests);
  const bytesByOrigin={};
  for(const r of requests){const origin=new URL(r.url).origin;bytesByOrigin[origin]=(bytesByOrigin[origin]||0)+r.bytes;}
  return {count:requests.length,bytes:requests.reduce((n,r)=>n+r.bytes,0),bytesByOrigin,failures:requests.filter(r=>r.error||r.status>=400),pending:requests.filter(r=>!r.finished)};

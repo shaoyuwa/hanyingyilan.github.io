@@ -110,7 +110,9 @@ The countdown updates on load; election-specific maintenance is in
 
 The build classifies every tracked file as public, excluded or the generated
 `_config.yml`, rejecting unknown paths. Legacy Jekyll excludes contributor sources,
-docs, tooling and test outputs using that generated configuration. No `.nojekyll`
+docs, tooling and test outputs using that generated configuration. It explicitly
+sets `theme: null` to prevent the Pages default theme from adding unlisted assets;
+the site already supplies its own HTML and CSS. No `.nojekyll`
 or Pages setting change is required. Repository-root Python serving does not apply exclusions. CI builds with the
 official Pages Jekyll action and verifies the exact `_site` file set plus HTTP
 responses; it does not deploy.
