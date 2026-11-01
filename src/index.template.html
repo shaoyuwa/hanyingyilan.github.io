@@ -53,7 +53,7 @@
 <div class="wrap">
   <div class="hero"><div class="hero-grid"><div class="hero-text">
     <span class="eyebrow">2026 宜蘭市長候選人<span class="no" id="eyebrowNo" aria-hidden="true">3</span>韓瑩</span>
-    <div class="headrow"><h1 id="h1" class="site-title">韓瑩政見一覽</h1><div id="heroLetters" aria-hidden="true"></div>
+    <div class="headrow"><h1 id="h1" class="site-title">韓瑩政見一覽</h1><div id="heroLetters" aria-hidden="true"><span class="row"><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-intl);--r:-4deg">新</button><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-welfare);--r:3deg">好</button><button class="ch w" aria-hidden="true" tabindex="-1" style="--c:var(--c-city);--r:-2deg">市</button><button class="ch w" aria-hidden="true" tabindex="-1" style="--c:var(--c-tour);--r:4deg">長</button></span><span class="row"><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-resil);--r:3deg">改</button><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-welfare);--r:-4deg">變</button><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-intl);--r:2deg">宜</button><button class="ch" aria-hidden="true" tabindex="-1" style="--c:var(--c-city);--r:-3deg">蘭</button></span></div>
     <figure class="portrait">
       <div class="pbox"><div class="zoomwrap">
         <img class="pimg" id="portraitImg" src="assets/images/portraits/han-ying-windblown.jpg" alt="韓瑩的肖像照，頭髮被風吹起" width="860" height="1290">
@@ -125,7 +125,7 @@
       <div class="toggle" role="group" aria-label="現況或改革後">
         <button id="tNow" aria-pressed="true">現在</button><button id="tNew" aria-pressed="false">改革之後</button>
       </div>
-      <div class="road">
+      <div class="road" tabindex="0" role="region" aria-label="清運路線示意圖，可左右捲動">
         <svg id="truck" viewBox="0 0 900 250" role="img" aria-label="垃圾車與清運站示意圖">
           <path d="M0 214 H900" stroke-width="4" style="stroke:var(--ink)"/>
           <path d="M0 232 H900" stroke-width="3" stroke-dasharray="24 18" opacity=".35" style="stroke:var(--ink)"/>
@@ -271,5 +271,6 @@
 <script src="assets/js/app.js"></script>
 <script src="assets/js/optional.js"></script>
 
+{{ANALYTICS}}
 </body>
 </html>

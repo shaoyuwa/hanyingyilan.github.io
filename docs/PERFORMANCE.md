@@ -79,3 +79,31 @@ Chromium tests passed. Later verification belongs to its corresponding PR and
 revision. Inspect mobile/desktop
 screenshots when repeating. Field targets remain p75 LCP ≤2.5s, INP ≤200ms, CLS ≤0.1, pending enough
 actual field data; local observations cannot establish them.
+
+
+## Current diagnostic CLI
+
+The historical results above remain scoped to their recorded revisions. For a new
+baseline, serve the intended checkout and run these commands **serially**, with
+no simultaneous browser tests or changes to served files:
+
+```sh
+node scripts/measure-performance.mjs --base-url http://127.0.0.1:8123/ --external=blocked --runs 3 --output /tmp/blocked.json
+node scripts/measure-performance.mjs --base-url http://127.0.0.1:8123/ --external=live --runs 3 --output /tmp/live.json
+```
+
+The original positional output argument remains supported. Each command runs both
+motion modes, three times by default, with the viewport, CPU and network conditions
+above. Startup remains load + 8 seconds; scroll observes each player plus 8 seconds.
+Reports separate startup/scroll request lists, bytes by origin, failed/pending
+requests, font faces and rendered-font samples, layout-shift nodes/rectangles,
+long tasks and CDP task/script duration. Bytes count completed requests by their
+initiation phase; late startup completions are separately retained after scroll.
+CLS stays the cumulative session-window maximum with phase-specific shift entries.
+
+Cross-origin out-of-process iframes can be missing from page-target CDP bytes/CPU;
+request-failure observations do not fill that gap. Live mode means requests are
+allowed, not that external fonts or players successfully load. Read failures and
+font status before interpreting results. Preserve raw temporary reports until their
+findings are recorded in the matching PR, then remove them under the temporary-file
+policy. No performance score or field CWV is inferred from these runs.

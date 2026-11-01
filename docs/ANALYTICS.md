@@ -1,7 +1,9 @@
 # One-month analytics decision — 2026-11-01
 
 Deployment is pending an owner-selected account and public site configuration.
-No analytics script, token, account, subscription or event collection was added.
+The optional integration is now present but disabled; no account, real token,
+subscription or live collection has been enabled. The generated default page
+contains no analytics loader.
 The dated evaluation favored Cloudflare's manual beacon for its then-free service
 and lack of hosting migration. This records that evaluation, not a fresh quote or
 an account/deployment decision. Search measurement has a separate
@@ -70,6 +72,27 @@ page hide and category hash changes. Reject deployment if prohibited data is sen
 do not silently relax the requirement to fit a provider. AI referrers only count
 identifiable referral visits, not total AI citations or recommendations.
 
+## Disabled integration and activation
+
+`content/analytics.json` defaults to `enabled: false`, `siteToken: null`. Missing
+configuration also emits no loader. `scripts/build.mjs` calls `src/analytics.mjs`;
+an enabled configuration without a 32-character hexadecimal public site token
+fails the build. No secret belongs in this file. The independent inline bootstrap
+uses the [official manual beacon](https://developers.cloudflare.com/web-analytics/get-started/)
+and its `data-cf-beacon` token. It only appends the vendor script when the browser
+origin equals `content/site.json`'s production origin, and appends it at most once.
+Local/fork origins never initialize it. It adds no control listeners, custom
+interaction events or URL rewriting. Provider failure does not block core scripts.
+
+Tests cover disabled/absent/invalid configuration, origin guards, duplicate
+initialization and blocked-provider core behavior. These are integration tests,
+not vendor dashboard or privacy acceptance. Before enabling, inspect the actual
+owner-selected vendor version with synthetic query parameters, fragments, referrer,
+calculator values and page-hide/navigation requests. Intercept reporting requests
+before transmission. Check payloads AND request URLs/referrer headers; a clean
+UI or aggregate dashboard is insufficient. If any forbidden field is present,
+leave `enabled: false`; do not implement a custom reporting protocol to bypass it.
+
 ## Owner checklist and shutdown
 
 Before deployment record the accountable maintainer, account ownership, approved
@@ -85,8 +108,8 @@ Measure bytes/requests/LCP/CLS/main-thread overhead using the same conditions as
 mark acceptance complete from source inspection alone. Exact script size and the
 live dashboard are pending the selected account/configuration.
 
-At the agreed end date, export approved aggregates to private storage, remove the
-snippet from the source template and regenerate, deploy and verify the absence of
+At the agreed end date, export approved aggregates to private storage, set `enabled: false` in
+`content/analytics.json` and regenerate, deploy and verify the absence of
 beacon requests including on page hide. Disable/remove the provider site as the
 owner selects; permanent data deletion requires the owner's deliberate action.
 For Plausible, also [cancel the plan](https://plausible.io/docs/cancel-subscription):

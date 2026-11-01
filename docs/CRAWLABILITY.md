@@ -43,13 +43,20 @@ node scripts/check-http.mjs http://127.0.0.1:8000/
 
 This client does not run JavaScript. It checks root, index and query variants for
 all 23 unique policy articles, every title/detail/original attribution, citation
-anchors, source links/dates/status, publisher and canonical. It also checks the
+anchors, source links/dates/status, publisher, one text H1, unique production canonical, Open Graph and category anchors. It also checks the
 robots and sitemap responses. Retired preview pages are no longer expected to return 200.
 Negative Node tests remove a policy or citation and require failure. These checks
 establish response-HTML coverage, not the truth of unverified sources or the
 identity of an actual crawler.
 
-Run the same command against production only after this stack is approved and
+For a Pages-compatible artifact or a deployed site, add `--published`. It also
+fetches every public manifest asset and requires 404 for retired previews,
+representative excluded files and an unknown path. The default local mode works
+with a repository-root server; it does not assert exclusion. Expected canonical,
+Open Graph origin and crawler URLs always come from `content/site.json`, even
+when the test server uses a different origin.
+
+Run the published mode against production only after this stack is approved and
 actually deployed upstream. It will intentionally fail if production still serves
 older content. Record URL, timestamp, response status, deployment commit and
 which assertions passed; keep local and deployed results separate. Follow the
